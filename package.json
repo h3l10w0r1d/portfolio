@@ -1,0 +1,16 @@
+{
+  "name": "armenghazaryan",
+  "version": "1.0.0",
+  "description": "Armen Ghazaryan - Product Owner & Developer Portfolio",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["portfolio", "developer", "product-owner"],
+  "author": "Armen Ghazaryan",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+Disallow: /.claude/
+Disallow: /.git/
+Disallow: /node_modules/
+
+# Specific crawl directives
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Sitemap
+Sitemap: https://armenghazaryan.am/sitemap.xml

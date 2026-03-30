@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    <!-- Home Page -->
+    <url>
+        <loc>https://armenghazaryan.am/</loc>
+        <lastmod>2026-03-30</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+        <image:image>
+            <image:loc>https://armenghazaryan.am/headshot.jpeg</image:loc>
+            <image:title>Armen Ghazaryan - Product Owner &amp; Developer</image:title>
+        </image:image>
+    </url>
+
+    <!-- Gallery Page -->
+    <url>
+        <loc>https://armenghazaryan.am/gallery.html</loc>
+        <lastmod>2026-03-30</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://armenghazaryan.am/gallery/armen-ghazaryan-headshot.jpeg</image:loc>
+            <image:title>Armen Ghazaryan Photo Gallery</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://armenghazaryan.am/gallery/armen-ghazaryan-portrait-neon.jpg</image:loc>
+            <image:title>Armen Ghazaryan Portrait with Neon Lighting</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://armenghazaryan.am/gallery/armen-ghazaryan-working.jpeg</image:loc>
+            <image:title>Armen Ghazaryan Working at Laptop</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://armenghazaryan.am/gallery/armen-ghazaryan-traveling.jpg</image:loc>
+            <image:title>Armen Ghazaryan Traveling</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://armenghazaryan.am/gallery/armen-ghazaryan-evening.png</image:loc>
+            <image:title>Armen Ghazaryan Evening in Yerevan</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://armenghazaryan.am/gallery/armen-ghazaryan-casual.jpg</image:loc>
+            <image:title>Armen Ghazaryan Casual Photo</image:title>
+        </image:image>
+    </url>
+</urlset>

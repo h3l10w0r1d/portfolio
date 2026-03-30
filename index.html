@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Armen Ghazaryan — Product Owner & Developer | Yerevan, Armenia</title>
+    <meta name="description" content="Armen Ghazaryan (Ghazaryan Armen) — Product Owner at Playtronix, CRM Specialist & Web Developer based in Yerevan, Armenia. IB student at Quantum College specializing in Mathematics and Computer Science.">
+    <meta name="keywords" content="Armen Ghazaryan, Ghazaryan Armen, Armen Ghazaryan Armenia, Armen Ghazaryan Yerevan, Armen Ghazaryan Playtronix, Product Owner Armenia, Web Developer Armenia, CRM Specialist, Quantum College, IB Diploma, Ghazaryan, armenghazaryan">
+    <meta name="author" content="Armen Ghazaryan">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://armenghazaryan.am/">
+    <link rel="sitemap" href="https://armenghazaryan.am/sitemap.xml">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://armenghazaryan.am/">
+    <meta property="og:title" content="Armen Ghazaryan — Product Owner & Developer">
+    <meta property="og:description" content="Armen Ghazaryan (Ghazaryan Armen) — Product Owner, CRM Specialist & Web Developer based in Yerevan, Armenia.">
+    <meta property="og:image" content="https://armenghazaryan.am/headshot.jpeg">
+    <meta property="og:image:alt" content="Armen Ghazaryan - Product Owner and Developer from Yerevan, Armenia">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Armen Ghazaryan">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Armen Ghazaryan — Product Owner & Developer">
+    <meta name="twitter:description" content="Armen Ghazaryan (Ghazaryan Armen) — Product Owner, CRM Specialist & Web Developer based in Yerevan, Armenia.">
+    <meta name="twitter:image" content="https://armenghazaryan.am/headshot.jpeg">
+    <meta name="twitter:image:alt" content="Armen Ghazaryan - Product Owner and Developer">
+
+    <!-- Schema.org Person structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Armen Ghazaryan",
+        "alternateName": ["Ghazaryan Armen", "Armen G.", "armenghazaryan"],
+        "url": "https://armenghazaryan.am",
+        "image": "https://armenghazaryan.am/headshot.jpeg",
+        "jobTitle": "Product Owner",
+        "worksFor": {
+            "@type": "Organization",
+            "name": "Playtronix"
+        },
+        "description": "Product Owner, CRM Specialist & Web Developer based in Yerevan, Armenia",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Yerevan",
+            "addressCountry": "AM"
+        },
+        "email": "ghazaryan.armen238@gmail.com",
+        "telephone": "+37496499094",
+        "nationality": "Armenian",
+        "knowsLanguage": ["Armenian", "Russian", "English"],
+        "alumniOf": {
+            "@type": "EducationalOrganization",
+            "name": "Quantum College"
+        },
+        "sameAs": [
+            "https://github.com/h3l10w0r1d",
+            "https://am.linkedin.com/in/armen-ghazaryan-9a420a340",
+            "https://www.instagram.com/armen_g_ag/",
+            "https://www.tiktok.com/@golden_touch_"
+        ]
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Particle canvas background -->
+    <canvas id="particles"></canvas>
+
+    <!-- Cursor glow -->
+    <div id="cursor-glow"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-logo glitch" data-text="AG">AG</div>
+        <div class="nav-links">
+            <a href="#about" class="nav-link">About</a>
+            <a href="#experience" class="nav-link">Experience</a>
+            <a href="#projects" class="nav-link">Projects</a>
+            <a href="#github" class="nav-link">GitHub</a>
+            <a href="#hobbies" class="nav-link">Hobbies</a>
+            <a href="#booking" class="nav-link">Book Call</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </div>
+        <div class="nav-status">
+            <span class="status-dot"></span>
+            <span class="status-text">Available for work</span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="hero-grid">
+            <div class="hero-content">
+                <div class="hero-tag reveal-up">
+                    <span class="tag-bracket">&lt;</span>
+                    <span class="tag-text">hello world</span>
+                    <span class="tag-bracket">/&gt;</span>
+                </div>
+                <h1 class="hero-name reveal-up">
+                    <span class="line">Armen</span>
+                    <span class="line accent">Ghazaryan</span>
+                </h1>
+                <div class="hero-title reveal-up">
+                    <span class="typing-text" id="typed-text"></span>
+                    <span class="cursor-blink">|</span>
+                </div>
+                <p class="hero-description reveal-up">
+                    Product Owner & CRM Specialist crafting next-generation digital experiences.
+                    Based in <span class="accent">Yerevan, Armenia</span>.
+                </p>
+                <div class="hero-cta reveal-up">
+                    <a href="#contact" class="btn btn-primary">
+                        <span>Get in Touch</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                    <a href="#projects" class="btn btn-outline">
+                        <span>View Projects</span>
+                    </a>
+                </div>
+                <div class="hero-stats reveal-up">
+                    <div class="stat">
+                        <span class="stat-number" data-count="5">0</span><span class="stat-plus">+</span>
+                        <span class="stat-label">Years Experience</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" data-count="20">0</span><span class="stat-plus">+</span>
+                        <span class="stat-label">Projects Delivered</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" data-count="15">0</span><span class="stat-plus">+</span>
+                        <span class="stat-label">Technologies</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual reveal-up">
+                <div class="photo-container">
+                    <div class="photo-frame">
+                        <img src="headshot.jpeg" alt="Armen Ghazaryan" class="photo">
+                        <div class="photo-overlay"></div>
+                    </div>
+                    <div class="photo-decoration dec-1"></div>
+                    <div class="photo-decoration dec-2"></div>
+                    <div class="photo-decoration dec-3"></div>
+                    <!-- Floating badges -->
+                    <div class="floating-badge badge-1">
+                        <span class="badge-icon">&#9883;</span>
+                        <span>Product Owner</span>
+                    </div>
+                    <div class="floating-badge badge-2">
+                        <span class="badge-icon">&#9000;</span>
+                        <span>Developer</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-line"></div>
+            <span>Scroll</span>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag reveal-up">// ABOUT ME</span>
+                <h2 class="section-title reveal-up">
+                    Building the <span class="accent">future</span>,<br>one product at a time
+                </h2>
+            </div>
+            <div class="about-grid">
+                <div class="about-text reveal-up">
+                    <p>Product Owner and CRM specialist with experience across different industries. Skilled in leading product strategy, agile methodologies, and cross-functional collaboration.</p>
+                    <p>Strong technical background in website builders, programming, and analytics, with proven ability to optimize user engagement and deliver scalable solutions.</p>
+                    <p>Currently pursuing the <span class="accent">International Baccalaureate diploma</span> in Mathematics and Computer Science at Quantum College, graduating <span class="accent">May 2026</span>.</p>
+                </div>
+                <div class="about-info reveal-up">
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        </div>
+                        <div class="info-content">
+                            <span class="info-label">Location</span>
+                            <span class="info-value">Yerevan, Armenia</span>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        </div>
+                        <div class="info-content">
+                            <span class="info-label">Email</span>
+                            <span class="info-value">ghazaryan.armen238@gmail.com</span>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                        </div>
+                        <div class="info-content">
+                            <span class="info-label">Phone</span>
+                            <span class="info-value">+374 96 499094</span>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/></svg>
+                        </div>
+                        <div class="info-content">
+                            <span class="info-label">Education</span>
+                            <span class="info-value">IB Diploma — Quantum College</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag reveal-up">// EXPERIENCE</span>
+                <h2 class="section-title reveal-up">
+                    Where I've <span class="accent">made impact</span>
+                </h2>
+            </div>
+            <div class="timeline">
+                <!-- Playtronix PO -->
+                <div class="timeline-item reveal-up">
+                    <div class="timeline-marker">
+                        <div class="marker-dot"></div>
+                        <div class="marker-line"></div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">Product Owner</h3>
+                                <span class="card-company">Playtronix — Yerevan, Armenia</span>
+                            </div>
+                            <span class="card-date">Oct 2024 — Present</span>
+                        </div>
+                        <ul class="card-list">
+                            <li>Lead vision and strategy for a next-generation Content Management System (CMS)</li>
+                            <li>Define product roadmaps, manage backlog, and write user stories</li>
+                            <li>Collaborate with engineering, design, and stakeholders for delivery</li>
+                            <li>Tools: Agile (Scrum, Kanban), Jira, Confluence, Power BI, Tableau</li>
+                        </ul>
+                        <div class="card-tags">
+                            <span class="card-tag">Agile</span>
+                            <span class="card-tag">Jira</span>
+                            <span class="card-tag">Power BI</span>
+                            <span class="card-tag">CMS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CRM Specialist -->
+                <div class="timeline-item reveal-up">
+                    <div class="timeline-marker">
+                        <div class="marker-dot"></div>
+                        <div class="marker-line"></div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">Customer Relationship Management Specialist</h3>
+                                <span class="card-company">Playtronix — Yerevan, Armenia</span>
+                            </div>
+                            <span class="card-date">Jul 2023 — Jun 2024</span>
+                        </div>
+                        <ul class="card-list">
+                            <li>Optimized player engagement, retention, and lifetime value</li>
+                            <li>Implemented CRM strategies and bonus campaigns to increase user activity</li>
+                            <li>Analyzed player behavior with Google Analytics and CRM platforms</li>
+                        </ul>
+                        <div class="card-tags">
+                            <span class="card-tag">CRM</span>
+                            <span class="card-tag">Analytics</span>
+                            <span class="card-tag">Retention</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Freelance -->
+                <div class="timeline-item reveal-up">
+                    <div class="timeline-marker">
+                        <div class="marker-dot"></div>
+                        <div class="marker-line"></div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">Freelance Website Developer</h3>
+                                <span class="card-company">Remote</span>
+                            </div>
+                            <span class="card-date">Mar 2023 — May 2024</span>
+                        </div>
+                        <ul class="card-list">
+                            <li>Designed and developed websites for clients in various industries</li>
+                            <li>Delivered SEO, e-commerce, and CMS solutions</li>
+                            <li>Managed full project lifecycle, ensuring timely and quality delivery</li>
+                            <li>Tech: PostgreSQL, MongoDB, Python, React, VueJS</li>
+                        </ul>
+                        <div class="card-tags">
+                            <span class="card-tag">React</span>
+                            <span class="card-tag">VueJS</span>
+                            <span class="card-tag">Python</span>
+                            <span class="card-tag">MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag reveal-up">// FEATURED PROJECTS</span>
+                <h2 class="section-title reveal-up">
+                    Things I've <span class="accent">built</span>
+                </h2>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card reveal-up">
+                    <div class="project-number">01</div>
+                    <div class="project-content">
+                        <h3 class="project-title">Haylingua</h3>
+                        <p class="project-desc">Armenian language learning platform inspired by Duolingo. Interactive lessons, gamified progress tracking, and structured curriculum for learners worldwide.</p>
+                        <div class="card-tags">
+                            <span class="card-tag">EdTech</span>
+                            <span class="card-tag">Language Learning</span>
+                            <span class="card-tag">Gamification</span>
+                        </div>
+                        <a href="https://haylingua.am" target="_blank" class="project-link">
+                            <span>haylingua.am</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card reveal-up">
+                    <div class="project-number">02</div>
+                    <div class="project-content">
+                        <h3 class="project-title">Streaming Service</h3>
+                        <p class="project-desc">Live streaming platform integrated within a casino ecosystem. Real-time video delivery, interactive chat, and seamless integration with the gaming experience.</p>
+                        <div class="card-tags">
+                            <span class="card-tag">Streaming</span>
+                            <span class="card-tag">Real-time</span>
+                            <span class="card-tag">iGaming</span>
+                        </div>
+                        <a href="https://bitfortune.com/streams" target="_blank" class="project-link">
+                            <span>bitfortune.com/streams</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card reveal-up">
+                    <div class="project-number">03</div>
+                    <div class="project-content">
+                        <h3 class="project-title">Daarvi</h3>
+                        <p class="project-desc">Armenia's renowned e-commerce platform connecting local shops with global leaders. A marketplace bridging Armenian businesses to a wider audience.</p>
+                        <div class="card-tags">
+                            <span class="card-tag">E-commerce</span>
+                            <span class="card-tag">Marketplace</span>
+                            <span class="card-tag">Armenia</span>
+                        </div>
+                        <a href="https://daarvi.am" target="_blank" class="project-link">
+                            <span>daarvi.am</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card reveal-up">
+                    <div class="project-number">04</div>
+                    <div class="project-content">
+                        <h3 class="project-title">Casino CMS</h3>
+                        <p class="project-desc">Advanced Content Management System for the iGaming industry. Industry-leading website builder with powerful customization, multi-tenant architecture, and enterprise-grade tooling.</p>
+                        <div class="card-tags">
+                            <span class="card-tag">CMS</span>
+                            <span class="card-tag">Website Builder</span>
+                            <span class="card-tag">Enterprise</span>
+                        </div>
+                        <span class="project-link project-link-nda">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                            <span>Under NDA</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag reveal-up">// SKILLS & TOOLS</span>
+                <h2 class="section-title reveal-up">
+                    My <span class="accent">tech stack</span>
+                </h2>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-category reveal-up">
+                    <h3 class="skill-cat-title">Product & Strategy</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">Story Mapping</div>
+                        <div class="skill-item">Business Analysis</div>
+                        <div class="skill-item">Acceptance Testing</div>
+                        <div class="skill-item">Scrum</div>
+                        <div class="skill-item">Kanban</div>
+                    </div>
+                </div>
+                <div class="skill-category reveal-up">
+                    <h3 class="skill-cat-title">Development</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">Python</div>
+                        <div class="skill-item">React</div>
+                        <div class="skill-item">FastAPI</div>
+                        <div class="skill-item">Flask</div>
+                        <div class="skill-item">VueJS</div>
+                        <div class="skill-item">PostgreSQL</div>
+                        <div class="skill-item">MongoDB</div>
+                        <div class="skill-item">Machine Learning</div>
+                    </div>
+                </div>
+                <div class="skill-category reveal-up">
+                    <h3 class="skill-cat-title">Tools & Platforms</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">Jira</div>
+                        <div class="skill-item">Confluence</div>
+                        <div class="skill-item">Figma</div>
+                        <div class="skill-item">Power BI</div>
+                        <div class="skill-item">Tableau</div>
+                        <div class="skill-item">AWS</div>
+                    </div>
+                </div>
+                <div class="skill-category reveal-up">
+                    <h3 class="skill-cat-title">Web & CMS</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">Wix Studio</div>
+                        <div class="skill-item">Framer</div>
+                        <div class="skill-item">Ghost</div>
+                        <div class="skill-item">SEO</div>
+                        <div class="skill-item">Zapier</div>
+                        <div class="skill-item">Semrush</div>
+                        <div class="skill-item">ahrefs</div>
+                        
+                    </div>
+                </div>
+                <div class="skill-category reveal-up">
+                    <h3 class="skill-cat-title">Customer Communication & CRM</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">Customer.io</div>
+                        <div class="skill-item">Snov.io</div>
+                        <div class="skill-item">Brevo</div>
+                        <div class="skill-item">Solitics</div>
+                        <div class="skill-item">Xtremepush</div>
+ 
+                        
+                    </div>
+                </div>
+                <div class="skill-category reveal-up">
+                    <h3 class="skill-cat-title">Other</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">Cybersecurity</div>
+                        <div class="skill-item">API Development</div>
+                        <div class="skill-item">Unreal Engine</div>
+                        <div class="skill-item">Google Analytics</div>
+                        <div class="skill-item">Ubuntu Linux</div>
+                        <div class="skill-item">Kali Linux</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Languages Section -->
+    <section id="languages" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag reveal-up">// LANGUAGES</span>
+                <h2 class="section-title reveal-up">
+                    I <span class="accent">speak</span>
+                </h2>
+            </div>
+            <div class="languages-grid">
+                <div class="language-card reveal-up">
+                    <div class="language-level-ring" data-level="100">
+                        <svg viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="42" class="ring-bg"/>
+                            <circle cx="50" cy="50" r="42" class="ring-fill" style="stroke-dasharray: 264; stroke-dashoffset: 0;"/>
+                        </svg>
+                        <span class="language-level-text">C2</span>
+                    </div>
+                    <h3 class="language-name">Armenian</h3>
+                    <span class="language-proficiency">Native</span>
+                </div>
+                <div class="language-card reveal-up">
+                    <div class="language-level-ring" data-level="100">
+                        <svg viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="42" class="ring-bg"/>
+                            <circle cx="50" cy="50" r="42" class="ring-fill" style="stroke-dasharray: 264; stroke-dashoffset: 0;"/>
+                        </svg>
+                        <span class="language-level-text">C2</span>
+                    </div>
+                    <h3 class="language-name">Russian</h3>
+                    <span class="language-proficiency">Native</span>
+                </div>
+                <div class="language-card reveal-up">
+                    <div class="language-level-ring" data-level="85">
+                        <svg viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="42" class="ring-bg"/>
+                            <circle cx="50" cy="50" r="42" class="ring-fill" style="stroke-dasharray: 264; stroke-dashoffset: 40;"/>
+                        </svg>
+                        <span class="language-level-text">C1</span>
+                    </div>
+                    <h3 class="language-name">English</h3>
+                    <span class="language-proficiency">Advanced — IELTS 7.0</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag reveal-up">// EDUCATION & CERTS</span>
+                <h2 class="section-title reveal-up">
+                    Learning <span class="accent">never stops</span>
+                </h2>
+            </div>
+            <div class="edu-grid">
+                <div class="edu-card reveal-up">
+                    <div class="edu-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/></svg>
+                    </div>
+                    <h3>International Baccalaureate (IB)</h3>
+                    <p class="edu-place">Quantum College — Yerevan</p>
+                    <p class="edu-date">Sep 2024 — May 2026</p>
+                    <p class="edu-detail">IB Diploma in Mathematics and Computer Science</p>
+                </div>
+                <div class="edu-card reveal-up">
+                    <div class="edu-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                    </div>
+                    <h3>High School Diploma</h3>
+                    <p class="edu-place">Quantum College — Yerevan</p>
+                    <p class="edu-date">Sep 2018 — May 2024</p>
+                    <p class="edu-detail">Secondary education at Quantum College</p>
+                </div>
+                <div class="edu-card reveal-up">
+                    <div class="edu-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    </div>
+                    <h3>IELTS Official Examination</h3>
+                    <p class="edu-place">British Council</p>
+                    <p class="edu-date">Issued Dec 2025</p>
+                    <p class="edu-detail">Band Score 7.0 — C1 Advanced English proficiency</p>
+                </div>
+                <div class="edu-card reveal-up">
+                    <div class="edu-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                    </div>
+                    <h3>SAT Mathematics</h3>
+                    <p class="edu-place">College Board</p>
+                    <p class="edu-detail edu-highlight">Score: <span class="accent">700</span> / 800</p>
+                </div>
+                <div class="edu-card reveal-up">
+                    <div class="edu-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16,18 22,12 16,6"/><polyline points="8,6 2,12 8,18"/></svg>
+                    </div>
+                    <h3>Introduction to Programming Using Python</h3>
+                    <p class="edu-date">Issued 2021</p>
+                    <p class="edu-detail">Foundations of programming and computational thinking</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hobbies & Interests Section -->
+    <section id="hobbies" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag reveal-up">// BEYOND CODE</span>
+                <h2 class="section-title reveal-up">
+                    Hobbies & <span class="accent">Interests</span>
+                </h2>
+            </div>
+            <div class="hobbies-grid">
+                <div class="hobby-card reveal-up">
+                    <div class="hobby-icon">⛷️</div>
+                    <h3>Skiing</h3>
+                    <p>Mountain enthusiast exploring slopes and enjoying winter sports.</p>
+                </div>
+                <div class="hobby-card reveal-up">
+                    <div class="hobby-icon">🎮</div>
+                    <h3>Counter-Strike 2</h3>
+                    <p>Competitive gaming and strategy-based gameplay.</p>
+                </div>
+                <div class="hobby-card reveal-up">
+                    <div class="hobby-icon">💪</div>
+                    <h3>Fitness</h3>
+                    <p>Regular gym training and maintaining an active lifestyle.</p>
+                </div>
+                <div class="hobby-card reveal-up">
+                    <div class="hobby-icon">🎬</div>
+                    <h3>Content Creation</h3>
+                    <p>Creating engaging videos and content on social media.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GitHub Projects Section -->
+    <section id="github" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag reveal-up">// OPEN SOURCE</span>
+                <h2 class="section-title reveal-up">
+                    GitHub <span class="accent">Projects</span>
+                </h2>
+            </div>
+            <div class="github-grid">
+                <a href="https://github.com/h3l10w0r1d/Haylinguav2" target="_blank" rel="noopener noreferrer" class="github-card reveal-up">
+                    <div class="github-header">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        <h3>Haylinguav2</h3>
+                    </div>
+                    <p>Advanced language processing and NLP project.</p>
+                    <span class="github-link">View on GitHub →</span>
+                </a>
+                <a href="https://github.com/h3l10w0r1d/daarvi" target="_blank" rel="noopener noreferrer" class="github-card reveal-up">
+                    <div class="github-header">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        <h3>Daarvi</h3>
+                    </div>
+                    <p>Web development and creative coding project.</p>
+                    <span class="github-link">View on GitHub →</span>
+                </a>
+                <a href="https://github.com/h3l10w0r1d/yzs1" target="_blank" rel="noopener noreferrer" class="github-card reveal-up">
+                    <div class="github-header">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        <h3>YZS1</h3>
+                    </div>
+                    <p>System development and backend solutions.</p>
+                    <span class="github-link">View on GitHub →</span>
+                </a>
+                <a href="https://github.com/h3l10w0r1d/Queue_System_SC_BO" target="_blank" rel="noopener noreferrer" class="github-card reveal-up">
+                    <div class="github-header">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        <h3>Queue System</h3>
+                    </div>
+                    <p>Queue management system for scheduling and operations.</p>
+                    <span class="github-link">View on GitHub →</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="booking" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag reveal-up">// LET'S TALK</span>
+                <h2 class="section-title reveal-up">
+                    Schedule a <span class="accent">Call</span>
+                </h2>
+                <p class="section-subtitle reveal-up">Book a 30-minute meeting to discuss your ideas or projects</p>
+            </div>
+            <div class="booking-container reveal-up">
+                <a href="https://calendar.app.google/tR2Dg9XByFmxcdUR8" target="_blank" rel="noopener noreferrer" class="btn btn-primary booking-btn">
+                    <span>Book a 30-Minute Call</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                </a>
+                <p class="booking-note">Opens Google Calendar in a new window. Pick your preferred time slot and confirm.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag reveal-up">// GET IN TOUCH</span>
+                <h2 class="section-title reveal-up">
+                    Let's <span class="accent">connect</span>
+                </h2>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info reveal-up">
+                    <p class="contact-desc">Whether you have a project in mind, a collaboration idea, or just want to say hello — I'd love to hear from you.</p>
+                    <div class="contact-links">
+                        <a href="mailto:ghazaryan.armen238@gmail.com" class="contact-link">
+                            <div class="contact-link-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            </div>
+                            <div>
+                                <span class="contact-link-label">Personal Email</span>
+                                <span class="contact-link-value">ghazaryan.armen238@gmail.com</span>
+                            </div>
+                        </a>
+                        <a href="mailto:armen.ghazaryan@playtronix.com" class="contact-link">
+                            <div class="contact-link-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            </div>
+                            <div>
+                                <span class="contact-link-label">Work Email</span>
+                                <span class="contact-link-value">armen.ghazaryan@playtronix.com</span>
+                            </div>
+                        </a>
+                        <a href="tel:+37496499094" class="contact-link">
+                            <div class="contact-link-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                            </div>
+                            <div>
+                                <span class="contact-link-label">Phone</span>
+                                <span class="contact-link-value">+374 96 499094</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://github.com/h3l10w0r1d" target="_blank" class="social-link" aria-label="GitHub">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                        </a>
+                        <a href="https://am.linkedin.com/in/armen-ghazaryan-9a420a340" target="_blank" class="social-link" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <a href="https://www.instagram.com/armen_g_ag/" target="_blank" class="social-link" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                        </a>
+                        <a href="https://www.tiktok.com/@golden_touch_" target="_blank" class="social-link" aria-label="TikTok">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="contact-badge reveal-up">
+                    <div class="linkedin-embed">
+                        <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="large" data-theme="dark" data-type="HORIZONTAL" data-vanity="ghazaryan-armen15" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://am.linkedin.com/in/ghazaryan-armen15?trk=profile-badge">Armen Ghazaryan</a></div>
+              
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container footer-content">
+            <div class="footer-left">
+                <span class="footer-logo glitch" data-text="AG">AG</span>
+                <span class="footer-copy">&copy; 2026 Armen Ghazaryan. All rights reserved.</span>
+            </div>
+            <div class="footer-right">
+                <a href="gallery.html" class="gallery-link">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
+                    <span>Gallery</span>
+                </a>
+                <span class="footer-built">Built with passion & code</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LinkedIn badge script -->
+    <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
+    <script src="script.js"></script>
+</body>
+</html>
