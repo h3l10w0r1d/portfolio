@@ -284,6 +284,140 @@ window.addEventListener('scroll', () => {
     });
 });
 
+// ===== PRELOADER =====
+const preloader = document.getElementById('preloader');
+const preloaderVideo = document.getElementById('preloader-video');
+
+function dismissPreloader() {
+    preloader.classList.add('ending');
+    setTimeout(() => {
+        preloader.classList.add('hidden');
+        document.body.classList.remove('preloading');
+    }, 1300);
+}
+
+if (preloaderVideo) {
+    preloaderVideo.addEventListener('ended', dismissPreloader);
+    // Fallback: if video fails to load or takes too long
+    preloaderVideo.addEventListener('error', dismissPreloader);
+    setTimeout(() => {
+        if (!preloader.classList.contains('hidden')) dismissPreloader();
+    }, 8000);
+} else {
+    dismissPreloader();
+}
+
+// ===== SCROLL PROGRESS BAR =====
+const scrollProgress = document.getElementById('scroll-progress');
+window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    scrollProgress.style.width = pct + '%';
+}, { passive: true });
+
+// ===== HAMBURGER / MOBILE MENU =====
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+
+hamburger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+});
+
+document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+});
+
+// ===== VISITOR COUNTER =====
+fetch('https://api.countapi.xyz/hit/armenghazaryan.am/visits')
+    .then(r => r.json())
+    .then(data => {
+        const el = document.querySelector('.visitor-count');
+        if (el && data.value) el.textContent = data.value.toLocaleString();
+    })
+    .catch(() => {});
+
+// ===== EASTER EGG — type "armen" anywhere =====
+let eggBuffer = '';
+document.addEventListener('keydown', (e) => {
+    eggBuffer = (eggBuffer + e.key.toLowerCase()).slice(-6);
+    if (eggBuffer.includes('armen')) {
+        eggBuffer = '';
+        triggerMatrixRain();
+    }
+});
+
+function triggerMatrixRain() {
+    const existing = document.getElementById('matrix-rain');
+    if (existing) return;
+
+    const mc = document.createElement('canvas');
+    mc.id = 'matrix-rain';
+    Object.assign(mc.style, {
+        position: 'fixed', inset: '0', zIndex: '9997',
+        pointerEvents: 'none', opacity: '0',
+        transition: 'opacity 0.6s ease'
+    });
+    document.body.appendChild(mc);
+
+    mc.width = window.innerWidth;
+    mc.height = window.innerHeight;
+    const mctx = mc.getContext('2d');
+
+    requestAnimationFrame(() => mc.style.opacity = '0.85');
+
+    const chars = 'ARMENGHAZARYAN₿⟠◈⬡01アイウエオカキクケコ'.split('');
+    const fontSize = 15;
+    const cols = Math.floor(mc.width / fontSize);
+    const drops = Array(cols).fill(0).map(() => Math.random() * -50);
+
+    const interval = setInterval(() => {
+        mctx.fillStyle = 'rgba(0,0,0,0.05)';
+        mctx.fillRect(0, 0, mc.width, mc.height);
+        chars.forEach((_, i) => {
+            const char = chars[Math.floor(Math.random() * chars.length)];
+            const brightness = Math.random() > 0.95 ? '#ffffff' : '#00ff88';
+            mctx.fillStyle = brightness;
+            mctx.font = `${fontSize}px 'JetBrains Mono', monospace`;
+            mctx.fillText(char, drops[i] * fontSize, drops[i] * fontSize);
+            // wait — correct column rendering
+            mctx.fillText(char, i * fontSize, drops[i] * fontSize);
+            if (drops[i] * fontSize > mc.height && Math.random() > 0.975) drops[i] = 0;
+            drops[i] += 0.5;
+        });
+    }, 40);
+
+    // Show secret message mid-animation
+    setTimeout(() => {
+        mctx.fillStyle = 'rgba(0,0,0,0.7)';
+        mctx.fillRect(mc.width / 2 - 220, mc.height / 2 - 40, 440, 80);
+        mctx.fillStyle = '#00ff88';
+        mctx.font = "bold 18px 'JetBrains Mono', monospace";
+        mctx.textAlign = 'center';
+        mctx.fillText('// you found the easter egg, legend 🐉', mc.width / 2, mc.height / 2 - 10);
+        mctx.fillStyle = '#888';
+        mctx.font = "14px 'JetBrains Mono', monospace";
+        mctx.fillText('armenghazaryan.am — built different', mc.width / 2, mc.height / 2 + 18);
+        mctx.textAlign = 'left';
+    }, 1500);
+
+    setTimeout(() => {
+        clearInterval(interval);
+        mc.style.opacity = '0';
+        setTimeout(() => mc.remove(), 700);
+    }, 5000);
+}
+
 // ===== CONSOLE EASTER EGG =====
 console.log(
     '%c AG %c Armen Ghazaryan — armenghazaryan.am ',
