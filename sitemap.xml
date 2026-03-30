@@ -43,5 +43,10 @@
             <image:loc>https://armenghazaryan.am/gallery/armen-ghazaryan-casual.jpg</image:loc>
             <image:title>Armen Ghazaryan Casual Photo</image:title>
         </image:image>
+        <image:image>
+            <image:loc>https://armenghazaryan.am/gallery/cuty.jpg</image:loc>
+            <image:title>Armen Ghazaryan — Casual Close-up Selfie Portrait</image:title>
+            <image:caption>Casual close-up selfie of Armen Ghazaryan (Ghazaryan Armen), Yerevan, Armenia</image:caption>
+        </image:image>
     </url>
 </urlset>

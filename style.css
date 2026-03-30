@@ -1441,6 +1441,20 @@ body::after {
     z-index: 9999;
 }
 
+/* ===== LOGO IMAGE ===== */
+.nav-logo-img {
+    height: 36px;
+    width: auto;
+    display: block;
+    filter: brightness(0) invert(1);
+    transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.nav-logo:hover .nav-logo-img,
+.footer-logo:hover .nav-logo-img {
+    filter: brightness(0) saturate(100%) invert(72%) sepia(69%) saturate(500%) hue-rotate(100deg) brightness(105%);
+}
+
 /* ===== HOBBIES SECTION ===== */
 .hobbies-grid {
     display: grid;
