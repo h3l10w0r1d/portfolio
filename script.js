@@ -296,7 +296,13 @@ function dismissPreloader() {
     }, 1300);
 }
 
-if (preloaderVideo) {
+const isMobile = window.innerWidth <= 768;
+
+if (isMobile) {
+    // Skip preloader entirely on mobile
+    preloader.classList.add('hidden');
+    document.body.classList.remove('preloading');
+} else if (preloaderVideo) {
     preloaderVideo.addEventListener('ended', dismissPreloader);
     // Fallback: if video fails to load or takes too long
     preloaderVideo.addEventListener('error', dismissPreloader);
