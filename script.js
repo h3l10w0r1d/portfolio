@@ -345,11 +345,12 @@ document.querySelectorAll('.mobile-nav-link').forEach(link => {
 });
 
 // ===== VISITOR COUNTER =====
-fetch('https://api.countapi.xyz/hit/armenghazaryan.am/visits')
+// Single shared key — works across armenghazaryan.am and vercel preview
+fetch('https://api.counterapi.dev/v1/armen-ghazaryan/portfolio/up')
     .then(r => r.json())
     .then(data => {
         const el = document.querySelector('.visitor-count');
-        if (el && data.value) el.textContent = data.value.toLocaleString();
+        if (el && data.count) el.textContent = data.count.toLocaleString();
     })
     .catch(() => {});
 
