@@ -1794,6 +1794,21 @@ body.preloading {
     font-weight: 600;
 }
 
+.footer-analytics-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-analytics-link:hover {
+    color: var(--green);
+}
+
 /* ===== MOBILE: show hamburger ===== */
 @media (max-width: 768px) {
     .hamburger {
