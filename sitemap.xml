@@ -4,19 +4,19 @@
     <!-- Home Page -->
     <url>
         <loc>https://armenghazaryan.am/</loc>
-        <lastmod>2026-03-30</lastmod>
+        <lastmod>2026-06-24</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
         <image:image>
             <image:loc>https://armenghazaryan.am/headshot.jpeg</image:loc>
-            <image:title>Armen Ghazaryan - Product Owner &amp; Developer</image:title>
+            <image:title>Armen Ghazaryan - Technical Product Owner</image:title>
         </image:image>
     </url>
 
     <!-- Gallery Page -->
     <url>
         <loc>https://armenghazaryan.am/gallery.html</loc>
-        <lastmod>2026-03-30</lastmod>
+        <lastmod>2026-06-24</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
         <image:image>

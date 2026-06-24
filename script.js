@@ -1,4 +1,4 @@
-// ===== PARTICLE SYSTEM =====
+// ===== PARTICLE SYSTEM (ambient 2D background) =====
 const canvas = document.getElementById('particles');
 const ctx = canvas.getContext('2d');
 let particles = [];
@@ -12,24 +12,18 @@ resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
 class Particle {
-    constructor() {
-        this.reset();
-    }
-
+    constructor() { this.reset(); }
     reset() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 0.5;
-        this.speedX = (Math.random() - 0.5) * 0.4;
-        this.speedY = (Math.random() - 0.5) * 0.4;
-        this.opacity = Math.random() * 0.5 + 0.1;
+        this.size = Math.random() * 1.8 + 0.4;
+        this.speedX = (Math.random() - 0.5) * 0.35;
+        this.speedY = (Math.random() - 0.5) * 0.35;
+        this.opacity = Math.random() * 0.4 + 0.1;
     }
-
     update() {
         this.x += this.speedX;
         this.y += this.speedY;
-
-        // Mouse interaction
         const dx = mouse.x - this.x;
         const dy = mouse.y - this.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
@@ -38,25 +32,18 @@ class Particle {
             this.x -= dx * force * 0.02;
             this.y -= dy * force * 0.02;
         }
-
-        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
-            this.reset();
-        }
+        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
     }
-
     draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0, 255, 136, ${this.opacity})`;
+        ctx.fillStyle = `rgba(0, 255, 163, ${this.opacity})`;
         ctx.fill();
     }
 }
 
-// Create particles
-const particleCount = Math.min(80, Math.floor(window.innerWidth / 15));
-for (let i = 0; i < particleCount; i++) {
-    particles.push(new Particle());
-}
+const particleCount = Math.min(70, Math.floor(window.innerWidth / 18));
+for (let i = 0; i < particleCount; i++) particles.push(new Particle());
 
 function drawConnections() {
     for (let i = 0; i < particles.length; i++) {
@@ -68,7 +55,7 @@ function drawConnections() {
                 ctx.beginPath();
                 ctx.moveTo(particles[i].x, particles[i].y);
                 ctx.lineTo(particles[j].x, particles[j].y);
-                ctx.strokeStyle = `rgba(0, 255, 136, ${0.06 * (1 - dist / 120)})`;
+                ctx.strokeStyle = `rgba(0, 255, 163, ${0.05 * (1 - dist / 120)})`;
                 ctx.lineWidth = 0.5;
                 ctx.stroke();
             }
@@ -78,10 +65,7 @@ function drawConnections() {
 
 function animateParticles() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => {
-        p.update();
-        p.draw();
-    });
+    particles.forEach(p => { p.update(); p.draw(); });
     drawConnections();
     requestAnimationFrame(animateParticles);
 }
@@ -98,24 +82,19 @@ document.addEventListener('mousemove', (e) => {
 
 // ===== NAVBAR SCROLL =====
 const navbar = document.getElementById('navbar');
-let lastScroll = 0;
-
 window.addEventListener('scroll', () => {
-    const currentScroll = window.scrollY;
-    if (currentScroll > 50) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
-    }
-    lastScroll = currentScroll;
-});
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+}, { passive: true });
 
-// ===== SMOOTH SCROLL NAV LINKS =====
-document.querySelectorAll('.nav-link').forEach(link => {
+// ===== SMOOTH SCROLL FOR IN-PAGE ANCHORS =====
+// Covers nav links, chapter-rail dots, the scroll indicator — anything href="#..."
+document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const target = document.querySelector(link.getAttribute('href'));
+        const href = link.getAttribute('href');
+        if (!href || href === '#') return;
+        const target = document.querySelector(href);
         if (target) {
+            e.preventDefault();
             target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     });
@@ -123,11 +102,12 @@ document.querySelectorAll('.nav-link').forEach(link => {
 
 // ===== TYPING EFFECT =====
 const titles = [
+    'Technical Product Owner',
     'Product Owner @ Playtronix',
-    'CRM Specialist',
     'Web Developer',
-    'IB Student — Quantum College',
-    'Yerevan, Armenia'
+    'CRM Specialist',
+    'AI/ML Student — Amsterdam ’26',
+    'Builder from Yerevan'
 ];
 
 let titleIndex = 0;
@@ -138,7 +118,6 @@ const typedText = document.getElementById('typed-text');
 
 function typeEffect() {
     const currentTitle = titles[titleIndex];
-
     if (isDeleting) {
         typedText.textContent = currentTitle.substring(0, charIndex - 1);
         charIndex--;
@@ -148,25 +127,19 @@ function typeEffect() {
         charIndex++;
         typingSpeed = 80;
     }
-
     if (!isDeleting && charIndex === currentTitle.length) {
-        typingSpeed = 2000; // Pause at end
+        typingSpeed = 2000;
         isDeleting = true;
     } else if (isDeleting && charIndex === 0) {
         isDeleting = false;
         titleIndex = (titleIndex + 1) % titles.length;
-        typingSpeed = 500; // Pause before next word
+        typingSpeed = 500;
     }
-
     setTimeout(typeEffect, typingSpeed);
 }
-
-// Start typing after a short delay
-setTimeout(typeEffect, 1000);
+if (typedText) setTimeout(typeEffect, 1000);
 
 // ===== SCROLL REVEAL =====
-const revealElements = document.querySelectorAll('.reveal-up');
-
 const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -174,44 +147,33 @@ const revealObserver = new IntersectionObserver((entries) => {
             revealObserver.unobserve(entry.target);
         }
     });
-}, {
-    threshold: 0.05,
-    rootMargin: '0px 0px -20px 0px'
-});
+}, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
 
-revealElements.forEach(el => revealObserver.observe(el));
+document.querySelectorAll('.reveal-up').forEach(el => revealObserver.observe(el));
 
-// Trigger hero reveals immediately on load
 window.addEventListener('load', () => {
     document.querySelectorAll('#hero .reveal-up').forEach((el, i) => {
-        setTimeout(() => el.classList.add('revealed'), 200 + i * 150);
+        setTimeout(() => el.classList.add('revealed'), 200 + i * 130);
     });
-
-    // Fallback: reveal any elements still hidden after 3s
     setTimeout(() => {
         document.querySelectorAll('.reveal-up:not(.revealed)').forEach(el => {
             const rect = el.getBoundingClientRect();
-            if (rect.top < window.innerHeight + 200) {
-                el.classList.add('revealed');
-            }
+            if (rect.top < window.innerHeight + 200) el.classList.add('revealed');
         });
     }, 3000);
 });
 
 // ===== COUNTER ANIMATION =====
-const counters = document.querySelectorAll('.stat-number');
-
 const counterObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            const target = parseInt(entry.target.getAttribute('data-count'));
-            animateCounter(entry.target, target);
+            animateCounter(entry.target, parseInt(entry.target.getAttribute('data-count')));
             counterObserver.unobserve(entry.target);
         }
     });
 }, { threshold: 0.5 });
 
-counters.forEach(counter => counterObserver.observe(counter));
+document.querySelectorAll('.stat-number').forEach(c => counterObserver.observe(c));
 
 function animateCounter(element, target) {
     let current = 0;
@@ -224,28 +186,25 @@ function animateCounter(element, target) {
         } else {
             element.textContent = Math.ceil(current);
         }
-    }, 40);
+    }, 35);
 }
 
-// ===== ACTIVE NAV LINK HIGHLIGHT =====
-const sections = document.querySelectorAll('.section');
+// ===== ACTIVE SECTION → NAV LINK + CHAPTER RAIL =====
 const navLinks = document.querySelectorAll('.nav-link');
+const railDots = document.querySelectorAll('.rail-dot');
 
 const sectionObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             const id = entry.target.getAttribute('id');
-            navLinks.forEach(link => {
-                link.style.color = '';
-                if (link.getAttribute('href') === '#' + id) {
-                    link.style.color = '#00ff88';
-                }
-            });
+            const hash = '#' + id;
+            navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === hash));
+            railDots.forEach(d => d.classList.toggle('active', d.getAttribute('href') === hash));
         }
     });
-}, { threshold: 0.3 });
+}, { threshold: 0.4 });
 
-sections.forEach(section => sectionObserver.observe(section));
+document.querySelectorAll('section[id]').forEach(s => sectionObserver.observe(s));
 
 // ===== MAGNETIC BUTTON EFFECT =====
 document.querySelectorAll('.btn').forEach(btn => {
@@ -253,15 +212,12 @@ document.querySelectorAll('.btn').forEach(btn => {
         const rect = btn.getBoundingClientRect();
         const x = e.clientX - rect.left - rect.width / 2;
         const y = e.clientY - rect.top - rect.height / 2;
-        btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+        btn.style.transform = `translate(${x * 0.12}px, ${y * 0.12}px)`;
     });
-
-    btn.addEventListener('mouseleave', () => {
-        btn.style.transform = '';
-    });
+    btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
 });
 
-// ===== SKILL ITEM TILT =====
+// ===== SKILL CARD TILT =====
 document.querySelectorAll('.skill-category').forEach(card => {
     card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
@@ -269,19 +225,7 @@ document.querySelectorAll('.skill-category').forEach(card => {
         const y = (e.clientY - rect.top) / rect.height - 0.5;
         card.style.transform = `perspective(600px) rotateY(${x * 5}deg) rotateX(${-y * 5}deg) translateY(-4px)`;
     });
-
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-    });
-});
-
-// ===== PARALLAX ON HERO DECORATIONS =====
-window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
-    const decorations = document.querySelectorAll('.photo-decoration');
-    decorations.forEach((dec, i) => {
-        dec.style.transform = `translateY(${scrollY * (0.05 + i * 0.02)}px)`;
-    });
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
 });
 
 // ===== PRELOADER =====
@@ -297,41 +241,42 @@ function dismissPreloader() {
 }
 
 const isMobile = window.innerWidth <= 768;
-
-if (isMobile) {
-    // Skip preloader entirely on mobile
+if (!preloader) {
+    // Pages without a preloader (e.g. gallery) — just make sure scrolling is enabled.
+    document.body.classList.remove('preloading');
+} else if (isMobile) {
     preloader.classList.add('hidden');
     document.body.classList.remove('preloading');
 } else if (preloaderVideo) {
     preloaderVideo.addEventListener('ended', dismissPreloader);
-    // Fallback: if video fails to load or takes too long
     preloaderVideo.addEventListener('error', dismissPreloader);
-    setTimeout(() => {
-        if (!preloader.classList.contains('hidden')) dismissPreloader();
-    }, 8000);
+    setTimeout(() => { if (!preloader.classList.contains('hidden')) dismissPreloader(); }, 8000);
 } else {
     dismissPreloader();
 }
 
 // ===== SCROLL PROGRESS BAR =====
 const scrollProgress = document.getElementById('scroll-progress');
-window.addEventListener('scroll', () => {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    scrollProgress.style.width = pct + '%';
-}, { passive: true });
+if (scrollProgress) {
+    window.addEventListener('scroll', () => {
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
+        scrollProgress.style.width = pct + '%';
+    }, { passive: true });
+}
 
 // ===== HAMBURGER / MOBILE MENU =====
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobile-menu');
 
-hamburger.addEventListener('click', () => {
-    const isOpen = mobileMenu.classList.toggle('open');
-    hamburger.classList.toggle('open', isOpen);
-    hamburger.setAttribute('aria-expanded', isOpen);
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-});
+if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', () => {
+        const isOpen = mobileMenu.classList.toggle('open');
+        hamburger.classList.toggle('open', isOpen);
+        hamburger.setAttribute('aria-expanded', isOpen);
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+}
 
 document.querySelectorAll('.mobile-nav-link').forEach(link => {
     link.addEventListener('click', () => {
@@ -339,13 +284,10 @@ document.querySelectorAll('.mobile-nav-link').forEach(link => {
         hamburger.classList.remove('open');
         hamburger.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
-        const target = document.querySelector(link.getAttribute('href'));
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 });
 
 // ===== VISITOR COUNTER =====
-// Single shared key — works across armenghazaryan.am and vercel preview
 fetch('https://api.counterapi.dev/v1/armen-ghazaryan/portfolio/up')
     .then(r => r.json())
     .then(data => {
@@ -365,22 +307,19 @@ document.addEventListener('keydown', (e) => {
 });
 
 function triggerMatrixRain() {
-    const existing = document.getElementById('matrix-rain');
-    if (existing) return;
+    if (document.getElementById('matrix-rain')) return;
 
     const mc = document.createElement('canvas');
     mc.id = 'matrix-rain';
     Object.assign(mc.style, {
         position: 'fixed', inset: '0', zIndex: '9997',
-        pointerEvents: 'none', opacity: '0',
-        transition: 'opacity 0.6s ease'
+        pointerEvents: 'none', opacity: '0', transition: 'opacity 0.6s ease'
     });
     document.body.appendChild(mc);
 
     mc.width = window.innerWidth;
     mc.height = window.innerHeight;
     const mctx = mc.getContext('2d');
-
     requestAnimationFrame(() => mc.style.opacity = '0.85');
 
     const chars = 'ARMENGHAZARYAN₿⟠◈⬡01アイウエオカキクケコ'.split('');
@@ -391,24 +330,20 @@ function triggerMatrixRain() {
     const interval = setInterval(() => {
         mctx.fillStyle = 'rgba(0,0,0,0.05)';
         mctx.fillRect(0, 0, mc.width, mc.height);
-        chars.forEach((_, i) => {
+        for (let i = 0; i < cols; i++) {
             const char = chars[Math.floor(Math.random() * chars.length)];
-            const brightness = Math.random() > 0.95 ? '#ffffff' : '#00ff88';
-            mctx.fillStyle = brightness;
+            mctx.fillStyle = Math.random() > 0.95 ? '#ffffff' : '#00ffa3';
             mctx.font = `${fontSize}px 'JetBrains Mono', monospace`;
-            mctx.fillText(char, drops[i] * fontSize, drops[i] * fontSize);
-            // wait — correct column rendering
             mctx.fillText(char, i * fontSize, drops[i] * fontSize);
             if (drops[i] * fontSize > mc.height && Math.random() > 0.975) drops[i] = 0;
             drops[i] += 0.5;
-        });
+        }
     }, 40);
 
-    // Show secret message mid-animation
     setTimeout(() => {
         mctx.fillStyle = 'rgba(0,0,0,0.7)';
         mctx.fillRect(mc.width / 2 - 220, mc.height / 2 - 40, 440, 80);
-        mctx.fillStyle = '#00ff88';
+        mctx.fillStyle = '#00ffa3';
         mctx.font = "bold 18px 'JetBrains Mono', monospace";
         mctx.textAlign = 'center';
         mctx.fillText('// you found the easter egg, legend 🐉', mc.width / 2, mc.height / 2 - 10);
@@ -428,6 +363,6 @@ function triggerMatrixRain() {
 // ===== CONSOLE EASTER EGG =====
 console.log(
     '%c AG %c Armen Ghazaryan — armenghazaryan.am ',
-    'background: #00ff88; color: #0a0a0a; font-weight: bold; padding: 4px 8px; border-radius: 4px 0 0 4px;',
-    'background: #161616; color: #00ff88; padding: 4px 8px; border-radius: 0 4px 4px 0; border: 1px solid #00ff88;'
+    'background: #00ffa3; color: #04070b; font-weight: bold; padding: 4px 8px; border-radius: 4px 0 0 4px;',
+    'background: #0a0f14; color: #00ffa3; padding: 4px 8px; border-radius: 0 4px 4px 0; border: 1px solid #00ffa3;'
 );

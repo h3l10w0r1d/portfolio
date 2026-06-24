@@ -238,11 +238,47 @@
             color: var(--green);
         }
 
+        /* Gallery has no dark hero behind the nav, so keep the bar solid
+           at all times — otherwise the bright photos bleed through it. */
+        #navbar,
+        #navbar.scrolled {
+            background: rgba(4, 7, 11, 0.92);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            color: var(--text-dim);
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 8px var(--green);
+            animation: statusPulse 2s infinite;
+        }
+        @keyframes statusPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
         @media (max-width: 900px) {
             .gallery-masonry {
                 columns: 2;
                 padding: 0 1.2rem 3rem;
             }
+            /* keep the nav usable on mobile (no hamburger on this page) */
+            .nav-links { display: flex !important; gap: 1rem; }
+            .nav-status { display: none; }
+        }
+        @media (max-width: 600px) {
+            .nav-links .nav-link { font-size: 0.72rem; }
         }
 
         @media (max-width: 600px) {
