@@ -66,6 +66,7 @@ function init() {
         uColorB: { value: new THREE.Color('#22d3ee') }, // cyan
         uColorC: { value: new THREE.Color('#2bb6e0') }, // violet
         uGlobalAlpha: { value: 1 },
+        uFlare: { value: 0 }, // ignition burst during the intro
     };
 
     // Story palette — the core shifts from green (web roots) toward violet (AI future).
@@ -75,6 +76,7 @@ function init() {
     const C_BLUE   = new THREE.Color('#3b82f6');
     const smoothstep = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
     const lerp = (a, b, t) => a + (b - a) * t;
+    const easeOutBack = (x) => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
 
     const vertexShader = /* glsl */`
         uniform float uTime;
@@ -129,6 +131,7 @@ function init() {
         uniform vec3 uColorB;
         uniform vec3 uColorC;
         uniform float uGlobalAlpha;
+        uniform float uFlare;
         varying float vNoise;
         varying vec3  vWorldNormal;
         varying vec3  vViewDir;
@@ -139,7 +142,8 @@ function init() {
             vec3 base = mix(uColorB, uColorA, mixv);          // cyan -> green by noise
             vec3 col  = mix(base, uColorC, fres * 0.6);       // violet rim
             col += fres * 0.5;                                // glow boost
-            float alpha = (0.42 + fres * 0.5) * uGlobalAlpha;
+            col += uFlare * (0.6 + fres * 1.4);               // ignition flare
+            float alpha = (0.42 + fres * 0.5 + uFlare * 0.5) * uGlobalAlpha;
             gl_FragColor = vec4(col, alpha);
         }
     `;
@@ -217,19 +221,34 @@ function init() {
 
     // ---- Render loop ----
     const clock = new THREE.Clock();
-    const INTRO_DUR = prefersReduced ? 0.2 : 2.0; // seconds — the core "opens" the page
+    const INTRO_DUR = prefersReduced ? 0.2 : 2.8; // seconds — the core "opens" the page
     let introDone = false;
+    let ignited = false;
 
     function frame() {
         const dt = clock.getDelta();
         const t = clock.elapsedTime;
 
-        // Intro timeline: the core forms in the centre, then glides to its hero spot.
+        // Intro timeline: the core rushes in from the depths, ignites, then settles.
         const introP = Math.min(1, t / INTRO_DUR);
         const introE = introP < 0.5 ? 4 * introP * introP * introP : 1 - Math.pow(-2 * introP + 2, 3) / 2;
 
-        // ease the displacement in on load
+        // Cinematic dolly: camera pulls from far away to its resting distance.
+        camera.position.z = lerp(13.0, 6.4, introE);
+
+        // Ignition burst — a flare at the moment the core arrives.
+        const flare = Math.max(0, 1 - Math.abs(introP - 0.4) / 0.22);
+        uniforms.uFlare.value = prefersReduced ? 0 : flare;
+        if (!ignited && introP >= 0.38) {
+            ignited = true;
+            document.body.classList.add('intro-ignite'); // fires the CSS flash + shockwave
+        }
+
+        // ease the displacement in on load (with an intro surge for energy)
         uniforms.uAmp.value += (uniforms.uAmpTarget.value - uniforms.uAmp.value) * 0.02;
+        if (introP < 1 && !prefersReduced) {
+            uniforms.uAmp.value = lerp(0.62, uniforms.uAmpTarget.value, introE);
+        }
 
         mouse.lerp(targetMouse, 0.06);
         uniforms.uMouse.value.copy(mouse);
@@ -262,9 +281,11 @@ function init() {
         // ---- Scale: pops up from nothing on intro, then settles ----
         const enter = smoothstep(0.0, 0.13, p);
         const baseScale = 1.0 - 0.16 * enter - 0.05 * Math.sin(p * Math.PI);
-        const introScale = lerp(0.12, 1.0, introE);
+        const introScale = prefersReduced ? introE : Math.max(0.02, easeOutBack(introP));
         group.scale.setScalar(baseScale * introScale);
-        halo.scale.setScalar((1.0 + p * 0.5) * introScale);
+        // particles converge inward from a wide cloud as the core forms
+        const haloConverge = lerp(3.4, 1.0, introE);
+        halo.scale.setScalar((1.0 + p * 0.5) * haloConverge);
 
         // ---- Colour story: green → cyan → blue as the page moves toward "AI" ----
         const toViolet = smoothstep(0.35, 1.0, p);

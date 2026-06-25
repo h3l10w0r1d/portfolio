@@ -138,6 +138,32 @@ body::before {
 /* During the intro the core sits above the veil; afterwards it drops behind content. */
 body.intro #hero-canvas { z-index: 9998; }
 
+/* Ignition flash — a bloom of light when the core arrives. */
+.intro-flash {
+    position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(160,255,225,.9) 0%, rgba(0,255,163,.35) 22%, transparent 55%);
+    mix-blend-mode: screen;
+}
+body.intro-ignite .intro-flash { animation: introFlash 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+@keyframes introFlash { 0% { opacity: 0; } 14% { opacity: 1; } 100% { opacity: 0; } }
+
+/* Shockwave ring that expands from the core on ignition. */
+.intro-ring {
+    position: fixed; top: 50%; left: 50%; z-index: 9999; pointer-events: none;
+    width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%;
+    border: 2px solid var(--green); opacity: 0; transform: scale(0);
+    box-shadow: 0 0 40px var(--green), inset 0 0 30px rgba(0,255,163,.4);
+}
+body.intro-ignite .intro-ring { animation: introRing 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+@keyframes introRing {
+    0% { opacity: 0; transform: scale(0); border-width: 3px; }
+    12% { opacity: 1; }
+    100% { opacity: 0; transform: scale(34); border-width: 0.5px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .intro-flash, .intro-ring { display: none; }
+}
+
 /* ===== CHAPTER RAIL ===== */
 .chapter-rail {
     position: fixed; right: 26px; top: 50%; transform: translateY(-50%);
