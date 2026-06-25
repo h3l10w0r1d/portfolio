@@ -87,6 +87,7 @@ function init() {
         varying float vNoise;
         varying vec3  vWorldNormal;
         varying vec3  vViewDir;
+        varying vec3  vReflect;
 
         // Simplex noise 3D — Ashima Arts / Stefan Gustavson
         vec4 permute(vec4 x){return mod(((x*34.0)+1.0)*x,289.0);}
@@ -112,16 +113,38 @@ function init() {
             return 42.0*dot(m*m,vec4(dot(p0,x0),dot(p1,x1),dot(p2,x2),dot(p3,x3)));
         }
 
+        float dispAmount(vec3 dir, float t){
+            float n = snoise(dir * uFreq + t);
+            n += 0.5 * snoise(dir * uFreq * 2.1 + t * 1.3);
+            return n;
+        }
+
         void main(){
             float t = uTime * uSpeed;
-            float n = snoise(normal * uFreq + t);
-            n += 0.5 * snoise(normal * uFreq * 2.1 + t * 1.3);
-            vNoise = n;
-            float mouseLift = (uMouse.x * normal.x + uMouse.y * normal.y) * 0.18;
-            vec3 displaced = position + normal * (n * uAmp + mouseLift);
-            vec4 worldPos = modelMatrix * vec4(displaced, 1.0);
-            vWorldNormal = normalize(mat3(modelMatrix) * normal);
+            vec3 dir = normalize(position);
+            float R = length(position);
+            float mouseLift = (uMouse.x * dir.x + uMouse.y * dir.y) * 0.18;
+
+            float d0 = dispAmount(dir, t);
+            vNoise = d0;
+            vec3 P = dir * (R + uAmp * d0 + mouseLift);
+
+            // Reconstruct the surface normal AFTER displacement so the bumps catch light.
+            vec3 up = mix(vec3(0.0, 1.0, 0.0), vec3(1.0, 0.0, 0.0), step(0.99, abs(dir.y)));
+            vec3 tang = normalize(cross(dir, up));
+            vec3 bitang = normalize(cross(dir, tang));
+            float eps = 0.12;
+            vec3 dirA = normalize(dir + tang * eps);
+            vec3 dirB = normalize(dir + bitang * eps);
+            vec3 PA = dirA * (R + uAmp * dispAmount(dirA, t) + mouseLift);
+            vec3 PB = dirB * (R + uAmp * dispAmount(dirB, t) + mouseLift);
+            vec3 objNormal = normalize(cross(PA - P, PB - P));
+            objNormal *= sign(dot(objNormal, dir) + 1e-5);
+
+            vec4 worldPos = modelMatrix * vec4(P, 1.0);
+            vWorldNormal = normalize(mat3(modelMatrix) * objNormal);
             vViewDir = normalize(cameraPosition - worldPos.xyz);
+            vReflect = reflect(-vViewDir, vWorldNormal);
             gl_Position = projectionMatrix * viewMatrix * worldPos;
         }
     `;
@@ -135,24 +158,50 @@ function init() {
         varying float vNoise;
         varying vec3  vWorldNormal;
         varying vec3  vViewDir;
+        varying vec3  vReflect;
 
         void main(){
-            float fres = pow(1.0 - max(dot(vWorldNormal, vViewDir), 0.0), 2.4);
-            float mixv = smoothstep(-1.0, 1.0, vNoise);
-            vec3 base = mix(uColorB, uColorA, mixv);          // cyan -> green by noise
-            vec3 col  = mix(base, uColorC, fres * 0.6);       // violet rim
-            col += fres * 0.5;                                // glow boost
-            col += uFlare * (0.6 + fres * 1.4);               // ignition flare
-            float alpha = (0.42 + fres * 0.5 + uFlare * 0.5) * uGlobalAlpha;
-            gl_FragColor = vec4(col, alpha);
+            vec3 N = normalize(vWorldNormal);
+            vec3 V = normalize(vViewDir);
+
+            // Albedo shifts with the surface noise (cyan -> green).
+            float mixv = smoothstep(-1.2, 1.2, vNoise);
+            vec3 albedo = mix(uColorB, uColorA, mixv);
+
+            // Key + fill lighting on the displaced surface.
+            vec3 L1 = normalize(vec3(0.55, 0.8, 0.55));
+            vec3 L2 = normalize(vec3(-0.6, -0.1, 0.25));
+            float diff = max(dot(N, L1), 0.0) * 0.95 + max(dot(N, L2), 0.0) * 0.25;
+            float ambient = 0.28;
+
+            // Tight specular highlight that sweeps as the core turns.
+            vec3 H = normalize(L1 + V);
+            float spec = pow(max(dot(N, H), 0.0), 70.0);
+
+            // Procedural environment reflection (ground -> sky gradient).
+            float envY = clamp(vReflect.y * 0.5 + 0.5, 0.0, 1.0);
+            vec3 envCol = mix(uColorC * 0.35, vec3(0.80, 1.0, 0.92), envY);
+
+            // Fresnel edge.
+            float fres = pow(1.0 - max(dot(N, V), 0.0), 3.0);
+
+            vec3 color = albedo * (ambient + diff);
+            color = mix(color, envCol, 0.22 + 0.18 * fres);
+            color += spec * vec3(0.85, 1.0, 0.92) * 1.3;   // glints
+            color += fres * uColorA * 0.7;                 // rim glow
+            color += uFlare * (0.7 + fres * 1.6);          // ignition
+
+            float alpha = (0.9 + fres * 0.1) * uGlobalAlpha;
+            gl_FragColor = vec4(color, alpha);
         }
     `;
 
     const coreMat = new THREE.ShaderMaterial({
         uniforms, vertexShader, fragmentShader,
         transparent: true,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false,
+        blending: THREE.NormalBlending,
+        depthWrite: true,
+        side: THREE.FrontSide,
     });
     const core = new THREE.Mesh(geo, coreMat);
     group.add(core);
