@@ -151,16 +151,15 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.reveal-up').forEach(el => revealObserver.observe(el));
 
+// The hero entrance is handled by the intro (revealSite). This only acts as a
+// safety net to reveal any near-viewport elements still hidden a few seconds in.
 window.addEventListener('load', () => {
-    document.querySelectorAll('#hero .reveal-up').forEach((el, i) => {
-        setTimeout(() => el.classList.add('revealed'), 200 + i * 130);
-    });
     setTimeout(() => {
         document.querySelectorAll('.reveal-up:not(.revealed)').forEach(el => {
             const rect = el.getBoundingClientRect();
             if (rect.top < window.innerHeight + 200) el.classList.add('revealed');
         });
-    }, 3000);
+    }, 3500);
 });
 
 // ===== COUNTER ANIMATION =====
@@ -228,31 +227,38 @@ document.querySelectorAll('.skill-category').forEach(card => {
     card.addEventListener('mouseleave', () => { card.style.transform = ''; });
 });
 
-// ===== PRELOADER =====
+// ===== INTRO / REVEAL =====
+// The 3D core (scene.js) plays an opening animation and dispatches
+// 'intro-complete'; we then fade the veil and bring the hero in.
 const preloader = document.getElementById('preloader');
-const preloaderVideo = document.getElementById('preloader-video');
+let siteRevealed = false;
 
-function dismissPreloader() {
-    preloader.classList.add('ending');
+function revealSite() {
+    if (siteRevealed) return;
+    siteRevealed = true;
+
+    if (preloader) preloader.classList.add('ending');
+    document.body.classList.remove('preloading');
+
+    // staggered hero entrance, synced with the veil fade
+    document.querySelectorAll('#hero .reveal-up').forEach((el, i) => {
+        setTimeout(() => el.classList.add('revealed'), 120 + i * 110);
+    });
+
     setTimeout(() => {
-        preloader.classList.add('hidden');
-        document.body.classList.remove('preloading');
-    }, 1300);
+        if (preloader) preloader.classList.add('hidden');
+        document.body.classList.remove('intro'); // core drops behind the content
+    }, 900);
 }
 
-const isMobile = window.innerWidth <= 768;
 if (!preloader) {
-    // Pages without a preloader (e.g. gallery) — just make sure scrolling is enabled.
+    // Pages without the intro veil (e.g. gallery) reveal immediately.
     document.body.classList.remove('preloading');
-} else if (isMobile) {
-    preloader.classList.add('hidden');
-    document.body.classList.remove('preloading');
-} else if (preloaderVideo) {
-    preloaderVideo.addEventListener('ended', dismissPreloader);
-    preloaderVideo.addEventListener('error', dismissPreloader);
-    setTimeout(() => { if (!preloader.classList.contains('hidden')) dismissPreloader(); }, 8000);
+    document.body.classList.remove('intro');
 } else {
-    dismissPreloader();
+    window.addEventListener('intro-complete', revealSite);
+    // Safety net: never stay stuck on the veil if the 3D never reports in.
+    setTimeout(revealSite, 6000);
 }
 
 // ===== SCROLL PROGRESS BAR =====
@@ -346,7 +352,7 @@ function triggerMatrixRain() {
         mctx.fillStyle = '#00ffa3';
         mctx.font = "bold 18px 'JetBrains Mono', monospace";
         mctx.textAlign = 'center';
-        mctx.fillText('// you found the easter egg, legend 🐉', mc.width / 2, mc.height / 2 - 10);
+        mctx.fillText('// you found the easter egg, legend', mc.width / 2, mc.height / 2 - 10);
         mctx.fillStyle = '#888';
         mctx.font = "14px 'JetBrains Mono', monospace";
         mctx.fillText('armenghazaryan.am — built different', mc.width / 2, mc.height / 2 + 18);

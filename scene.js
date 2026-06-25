@@ -13,6 +13,8 @@ function fail() {
     // Reveal the CSS gradient fallback and bail out cleanly.
     document.body.classList.add('no-3d');
     if (canvas) canvas.style.display = 'none';
+    // No 3D intro — let the page reveal itself immediately.
+    window.dispatchEvent(new Event('intro-complete'));
 }
 
 // Bail if WebGL is unavailable.
@@ -62,14 +64,14 @@ function init() {
         uMouse: { value: new THREE.Vector2(0, 0) },
         uColorA: { value: new THREE.Color('#00ffa3') }, // neon green
         uColorB: { value: new THREE.Color('#22d3ee') }, // cyan
-        uColorC: { value: new THREE.Color('#7c5cff') }, // violet
+        uColorC: { value: new THREE.Color('#2bb6e0') }, // violet
         uGlobalAlpha: { value: 1 },
     };
 
     // Story palette — the core shifts from green (web roots) toward violet (AI future).
     const C_GREEN  = new THREE.Color('#00ffa3');
     const C_CYAN   = new THREE.Color('#22d3ee');
-    const C_VIOLET = new THREE.Color('#7c5cff');
+    const C_VIOLET = new THREE.Color('#2bb6e0');
     const C_BLUE   = new THREE.Color('#3b82f6');
     const smoothstep = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
     const lerp = (a, b, t) => a + (b - a) * t;
@@ -215,10 +217,16 @@ function init() {
 
     // ---- Render loop ----
     const clock = new THREE.Clock();
+    const INTRO_DUR = prefersReduced ? 0.2 : 2.0; // seconds — the core "opens" the page
+    let introDone = false;
 
     function frame() {
         const dt = clock.getDelta();
         const t = clock.elapsedTime;
+
+        // Intro timeline: the core forms in the centre, then glides to its hero spot.
+        const introP = Math.min(1, t / INTRO_DUR);
+        const introE = introP < 0.5 ? 4 * introP * introP * introP : 1 - Math.pow(-2 * introP + 2, 3) / 2;
 
         // ease the displacement in on load
         uniforms.uAmp.value += (uniforms.uAmpTarget.value - uniforms.uAmp.value) * 0.02;
@@ -236,33 +244,46 @@ function init() {
         const px = Math.cos(p * Math.PI * 2) * weave + mouse.x * 0.25;
         const py = Math.sin(p * Math.PI * 3) * 0.55 + mouse.y * 0.15;
         const pz = Math.sin(p * Math.PI * 2) * 0.6;
-        group.position.set(px, py, pz);
-        halo.position.set(px * 0.92, py * 0.92, pz);
+        // Blend from centre-stage (intro) to the scroll-driven position.
+        const ix = lerp(0.0, px, introE);
+        const iy = lerp(0.0, py, introE);
+        const iz = lerp(1.2, pz, introE);
+        group.position.set(ix, iy, iz);
+        halo.position.set(ix * 0.92, iy * 0.92, iz);
 
         const spin = prefersReduced ? 0 : 0.12;
-        group.rotation.y += dt * spin;
+        group.rotation.y += dt * spin * (1 + (1 - introE) * 4); // spins faster while forming
         group.rotation.x = mouse.y * 0.2 + p * 0.6;
         group.rotation.z = p * 0.5;
         wire.rotation.y -= dt * spin * 1.6;
         wire.rotation.z += dt * 0.04;
         halo.rotation.y += dt * 0.03;
 
-        // ---- Scale: full in the hero, a touch calmer while reading ----
+        // ---- Scale: pops up from nothing on intro, then settles ----
         const enter = smoothstep(0.0, 0.13, p);
-        group.scale.setScalar(1.0 - 0.16 * enter - 0.05 * Math.sin(p * Math.PI));
-        halo.scale.setScalar(1.0 + p * 0.5);
+        const baseScale = 1.0 - 0.16 * enter - 0.05 * Math.sin(p * Math.PI);
+        const introScale = lerp(0.12, 1.0, introE);
+        group.scale.setScalar(baseScale * introScale);
+        halo.scale.setScalar((1.0 + p * 0.5) * introScale);
 
-        // ---- Colour story: green → cyan → violet as the page moves toward "AI" ----
+        // ---- Colour story: green → cyan → blue as the page moves toward "AI" ----
         const toViolet = smoothstep(0.35, 1.0, p);
         const toBlue   = smoothstep(0.15, 0.85, p);
         uniforms.uColorA.value.copy(C_GREEN).lerp(C_VIOLET, toViolet * 0.85);
         uniforms.uColorB.value.copy(C_CYAN).lerp(C_BLUE, toBlue * 0.7);
 
-        // ---- Presence: bold in the hero, then settle to an ambient companion ----
+        // ---- Presence: fades in on intro, bold in hero, ambient afterwards ----
         const ga = lerp(1.0, 0.55, smoothstep(0.02, 0.16, p));
-        uniforms.uGlobalAlpha.value = ga;
-        haloMat.opacity = 0.8 * ga;
-        wireMat.opacity = 0.12 * ga;
+        const introAlpha = Math.min(1, introP * 2.2);
+        uniforms.uGlobalAlpha.value = ga * introAlpha;
+        haloMat.opacity = 0.8 * ga * introAlpha;
+        wireMat.opacity = 0.12 * ga * introAlpha;
+
+        // Hand off to the page once the core reaches its hero position.
+        if (!introDone && introP >= 1) {
+            introDone = true;
+            window.dispatchEvent(new Event('intro-complete'));
+        }
 
         renderer.render(scene, camera);
         requestAnimationFrame(frame);
