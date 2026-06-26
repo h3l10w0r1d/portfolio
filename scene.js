@@ -263,6 +263,9 @@ function init() {
     let progress = 0;        // 0..1 across the whole document
     let smoothProgress = 0;  // eased version
     let weave = 2.0;         // horizontal travel range (set in resize)
+    const caseEl = document.getElementById('adrenaline');
+    let caseFocus = 0;       // 0..1 how centred the case study is in view
+    let smoothCase = 0;      // eased version
 
     function onPointer(e) {
         const x = (e.clientX / window.innerWidth) * 2 - 1;
@@ -274,6 +277,12 @@ function init() {
     function updateProgress() {
         const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
         progress = Math.min(1, Math.max(0, window.scrollY / max));
+        if (caseEl) {
+            const r = caseEl.getBoundingClientRect();
+            const vh = window.innerHeight || 1;
+            const centerDist = Math.abs((r.top + r.bottom) * 0.5 - vh * 0.5) / vh;
+            caseFocus = Math.max(0, 1 - centerDist * 1.3); // peaks when the section is centred
+        }
     }
     window.addEventListener('scroll', updateProgress, { passive: true });
 
@@ -354,11 +363,15 @@ function init() {
 
         // ease the scroll progress so the core glides between story beats
         smoothProgress += (progress - smoothProgress) * 0.08;
+        smoothCase += (caseFocus - smoothCase) * 0.07;
         const p = smoothProgress;
+        const cf = smoothCase;
 
         // ---- The journey: weave the core across the page as you scroll ----
         // right (hero) → centre → left → centre → right, drifting and changing depth.
-        const px = Math.cos(p * Math.PI * 2) * weave + mouse.x * 0.25;
+        let px = Math.cos(p * Math.PI * 2) * weave + mouse.x * 0.25;
+        // While the case study is centred, draw the core in behind the panel.
+        px = lerp(px, mouse.x * 0.2, cf * 0.85);
         const py = Math.sin(p * Math.PI * 3) * 0.55 + mouse.y * 0.15;
         const pz = Math.sin(p * Math.PI * 2) * 0.6;
         // Blend from centre-stage (intro) to the scroll-driven position.
@@ -369,7 +382,7 @@ function init() {
         halo.position.set(ix * 0.92, iy * 0.92, iz);
 
         const spin = prefersReduced ? 0 : 0.12;
-        group.rotation.y += dt * spin * (1 + (1 - introE) * 4); // spins faster while forming
+        group.rotation.y += dt * spin * (1 + (1 - introE) * 4 + cf * 2.6); // spins up while forming or in focus
         group.rotation.x = mouse.y * 0.2 + p * 0.6;
         group.rotation.z = p * 0.5;
         wire.rotation.y -= dt * spin * 1.6;
@@ -380,7 +393,7 @@ function init() {
         const enter = smoothstep(0.0, 0.13, p);
         const baseScale = 1.0 - 0.16 * enter - 0.05 * Math.sin(p * Math.PI);
         const introScale = prefersReduced ? introE : Math.max(0.02, easeOutBack(introP));
-        group.scale.setScalar(baseScale * introScale);
+        group.scale.setScalar(baseScale * introScale * (1 + cf * 0.22)); // swells when the case study centres
         // particles converge inward from a wide cloud as the core forms
         const haloConverge = lerp(3.4, 1.0, introE);
         halo.scale.setScalar((1.0 + p * 0.5) * haloConverge);
@@ -392,7 +405,7 @@ function init() {
         uniforms.uColorB.value.copy(C_CYAN).lerp(C_BLUE, toBlue * 0.7);
 
         // ---- Presence: fades in on intro, bold in hero, ambient afterwards ----
-        const ga = lerp(1.0, 0.55, smoothstep(0.02, 0.16, p));
+        const ga = Math.min(1.0, lerp(1.0, 0.55, smoothstep(0.02, 0.16, p)) + cf * 0.3);
         const introAlpha = Math.min(1, introP * 2.2);
         uniforms.uGlobalAlpha.value = ga * introAlpha;
         haloMat.opacity = 0.8 * ga * introAlpha;

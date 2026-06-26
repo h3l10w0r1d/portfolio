@@ -453,6 +453,23 @@ body.no-3d .hero-fallback { display: block; }
 .case-label { display: block; font-family: var(--font-mono); font-size: .74rem; color: var(--green); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
 .case-step-head { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.2rem, 2.6vw, 1.65rem); line-height: 1.22; color: var(--text-bright); margin-bottom: 12px; }
 .case-step-content p { color: var(--text); font-size: 1.02rem; line-height: 1.65; max-width: 56ch; }
+
+/* Awwwards-style scroll spotlight — lit only when GSAP enables `.spotlight`
+   (without GSAP every step stays fully visible, so content is never hidden). */
+.case-step { transition: opacity .55s var(--ease), filter .55s var(--ease); }
+.case-step-content { transition: transform .6s var(--ease); }
+.case-step-num { transition: transform .5s var(--ease), box-shadow .5s var(--ease), background .5s var(--ease), color .5s var(--ease), border-color .5s var(--ease); }
+.case-steps.spotlight .case-step { opacity: .24; filter: saturate(.55); }
+.case-steps.spotlight .case-step.is-active { opacity: 1; filter: none; }
+.case-steps.spotlight .case-step:not(.is-active) .case-step-content { transform: translateY(12px); }
+.case-steps.spotlight .case-step.is-active .case-step-num {
+    transform: scale(1.09);
+    color: #bafce2;
+    border-color: rgba(0,255,163,.65);
+    background: linear-gradient(rgba(0,255,163,.3), rgba(0,255,163,.12)), var(--bg-2);
+    box-shadow: 0 0 30px var(--glow), 0 0 0 5px rgba(0,255,163,.08);
+}
+
 .case-footer { position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px; padding-top: 26px; border-top: 1px solid var(--border); }
 @media (max-width: 600px) {
     .case-step { grid-template-columns: 44px 1fr; gap: 18px; }

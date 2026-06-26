@@ -84,6 +84,26 @@
         });
     }
 
+    // Awwwards-style moving spotlight: light the active step, dim the rest.
+    if (caseSteps) {
+        const steps = gsap.utils.toArray('.case-step');
+        if (steps.length) {
+            caseSteps.classList.add('spotlight');
+            const setActive = function (active) {
+                steps.forEach(function (s) { s.classList.toggle('is-active', s === active); });
+            };
+            steps.forEach(function (step) {
+                ScrollTrigger.create({
+                    trigger: step,
+                    start: 'top 62%',
+                    end: 'bottom 45%',
+                    onToggle: function (self) { if (self.isActive) setActive(step); }
+                });
+            });
+            setActive(steps[0]); // first beat lit until you scroll
+        }
+    }
+
     // Keep triggers accurate once fonts/images settle.
     window.addEventListener('load', function () { ScrollTrigger.refresh(); });
 })();
