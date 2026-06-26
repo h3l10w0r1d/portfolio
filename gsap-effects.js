@@ -73,6 +73,17 @@
         });
     });
 
+    // Case-study progress line fills as you scroll through the story.
+    const caseSteps = document.querySelector('.case-steps');
+    const caseProgress = caseSteps && caseSteps.querySelector('.case-progress');
+    if (caseSteps && caseProgress) {
+        gsap.fromTo(caseProgress, { height: 0 }, {
+            height: function () { return Math.max(0, caseSteps.offsetHeight - 56); },
+            ease: 'none',
+            scrollTrigger: { trigger: caseSteps, start: 'top 65%', end: 'bottom 75%', scrub: true }
+        });
+    }
+
     // Keep triggers accurate once fonts/images settle.
     window.addEventListener('load', function () { ScrollTrigger.refresh(); });
 })();

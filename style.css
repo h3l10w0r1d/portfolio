@@ -438,11 +438,27 @@ body.no-3d .hero-fallback { display: block; }
 .case-title { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.7rem, 4.5vw, 2.8rem); line-height: 1.08; letter-spacing: -.02em; color: var(--text-bright); margin-bottom: 18px; }
 .case-roles { display: flex; flex-wrap: wrap; gap: 8px; }
 .case-roles span { font-family: var(--font-mono); font-size: .74rem; color: var(--green-soft); border: 1px solid rgba(0,255,163,.2); background: rgba(0,255,163,.06); padding: 5px 12px; border-radius: 20px; }
-.case-grid { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 26px 44px; margin-bottom: 34px; }
-.case-label { display: block; font-family: var(--font-mono); font-size: .76rem; color: var(--green); letter-spacing: .06em; margin-bottom: 10px; }
-.case-block p { color: var(--text); font-size: 1rem; line-height: 1.65; }
+/* vertical scroll-told timeline */
+.case-steps { position: relative; margin: 6px 0 34px; }
+.case-steps::before { content: ''; position: absolute; left: 27px; top: 28px; bottom: 28px; width: 2px; background: var(--border); }
+.case-progress { position: absolute; left: 27px; top: 28px; width: 2px; height: 0; background: var(--grad); box-shadow: 0 0 12px var(--glow); z-index: 1; }
+.case-step { position: relative; display: grid; grid-template-columns: 72px 1fr; gap: 28px; padding-bottom: 46px; }
+.case-step:last-child { padding-bottom: 0; }
+.case-step-num {
+    width: 56px; height: 56px; display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 800; font-size: 1.4rem; color: var(--green);
+    border-radius: 16px; border: 1px solid rgba(0,255,163,.3); position: relative; z-index: 2;
+    background: linear-gradient(rgba(0,255,163,.1), rgba(0,255,163,.04)), var(--bg-2);
+}
+.case-label { display: block; font-family: var(--font-mono); font-size: .74rem; color: var(--green); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+.case-step-head { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.2rem, 2.6vw, 1.65rem); line-height: 1.22; color: var(--text-bright); margin-bottom: 12px; }
+.case-step-content p { color: var(--text); font-size: 1.02rem; line-height: 1.65; max-width: 56ch; }
 .case-footer { position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px; padding-top: 26px; border-top: 1px solid var(--border); }
-@media (max-width: 760px) { .case-grid { grid-template-columns: 1fr; } }
+@media (max-width: 600px) {
+    .case-step { grid-template-columns: 44px 1fr; gap: 18px; }
+    .case-step-num { width: 44px; height: 44px; font-size: 1.1rem; border-radius: 13px; }
+    .case-steps::before, .case-progress { left: 21px; }
+}
 
 /* ===== CHAPTER 04 · SKILLS ===== */
 .skills-grid { margin-top: 50px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
