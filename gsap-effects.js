@@ -104,6 +104,45 @@
         }
     }
 
+    // Marquee skews with scroll velocity (Awwwards signature).
+    const marquee = document.querySelector('.marquee');
+    if (marquee) {
+        const skewSetter = gsap.quickTo(marquee, 'skewX', { duration: 0.5, ease: 'power3' });
+        ScrollTrigger.create({
+            onUpdate: function (self) {
+                skewSetter(gsap.utils.clamp(-8, 8, self.getVelocity() / 260));
+            }
+        });
+    }
+
+    // Experience timeline: each beat activates as it scrolls through.
+    gsap.utils.toArray('.timeline-item').forEach(function (item) {
+        ScrollTrigger.create({
+            trigger: item, start: 'top 72%', end: 'bottom 30%',
+            onToggle: function (self) { item.classList.toggle('tl-active', self.isActive); }
+        });
+    });
+
+    // Whole-page aurora drifts for parallax depth.
+    if (document.querySelector('.aurora')) {
+        gsap.to('.aurora', {
+            yPercent: 16, ease: 'none',
+            scrollTrigger: { start: 'top top', end: 'max', scrub: true }
+        });
+    }
+
+    // Skill chips stagger in when their group enters view.
+    gsap.utils.toArray('.skill-category').forEach(function (cat) {
+        const items = cat.querySelectorAll('.skill-item');
+        if (!items.length) return;
+        ScrollTrigger.create({
+            trigger: cat, start: 'top 82%', once: true,
+            onEnter: function () {
+                gsap.from(items, { y: 14, opacity: 0, duration: 0.5, ease: 'power3.out', stagger: 0.03, clearProps: 'all' });
+            }
+        });
+    });
+
     // Keep triggers accurate once fonts/images settle.
     window.addEventListener('load', function () { ScrollTrigger.refresh(); });
 })();
