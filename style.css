@@ -434,6 +434,28 @@ body.no-3d .hero-fallback { display: block; }
 .project-link-nda, .project-link-soon { color: var(--text-dim); cursor: default; }
 .project-soon { border-style: dashed; }
 .project-soon .project-title { color: var(--text); }
+.project-links { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; }
+.project-link-muted { color: var(--text-dim); }
+.project-link-muted:hover { color: var(--green); }
+
+/* ===== CASE STUDY ===== */
+.case-study {
+    position: relative; margin-top: 28px; padding: clamp(28px, 5vw, 56px);
+    border-radius: 26px; overflow: hidden; border: 1px solid rgba(0,255,163,.22);
+    background: linear-gradient(150deg, rgba(0,255,163,.06), rgba(43,188,230,.05));
+    backdrop-filter: blur(10px);
+}
+.case-glow { position: absolute; width: 420px; height: 420px; border-radius: 50%; top: -160px; left: -100px; filter: blur(30px); pointer-events: none; background: radial-gradient(circle, rgba(0,255,163,.22), transparent 70%); }
+.case-header { position: relative; margin-bottom: 34px; }
+.case-flag { display: inline-block; font-family: var(--font-mono); font-size: .72rem; color: #04070b; background: var(--grad); padding: 5px 14px; border-radius: 20px; font-weight: 600; margin-bottom: 16px; }
+.case-title { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.7rem, 4.5vw, 2.8rem); line-height: 1.08; letter-spacing: -.02em; color: var(--text-bright); margin-bottom: 18px; }
+.case-roles { display: flex; flex-wrap: wrap; gap: 8px; }
+.case-roles span { font-family: var(--font-mono); font-size: .74rem; color: var(--green-soft); border: 1px solid rgba(0,255,163,.2); background: rgba(0,255,163,.06); padding: 5px 12px; border-radius: 20px; }
+.case-grid { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 26px 44px; margin-bottom: 34px; }
+.case-label { display: block; font-family: var(--font-mono); font-size: .76rem; color: var(--green); letter-spacing: .06em; margin-bottom: 10px; }
+.case-block p { color: var(--text); font-size: 1rem; line-height: 1.65; }
+.case-footer { position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px; padding-top: 26px; border-top: 1px solid var(--border); }
+@media (max-width: 760px) { .case-grid { grid-template-columns: 1fr; } }
 
 /* ===== CHAPTER 04 · SKILLS ===== */
 .skills-grid { margin-top: 50px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
