@@ -234,6 +234,29 @@ function init() {
     const halo = new THREE.Points(haloGeo, haloMat);
     scene.add(halo);
 
+    // ---- Ignition spark burst (explodes outward when the core arrives) ----
+    const SPARKS = isMobile ? 160 : 340;
+    const sparkPos = new Float32Array(SPARKS * 3);
+    const sparkVel = new Float32Array(SPARKS * 3);
+    for (let i = 0; i < SPARKS; i++) {
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos(2 * Math.random() - 1);
+        const speed = 3.5 + Math.random() * 7.5;
+        sparkVel[i * 3]     = Math.sin(phi) * Math.cos(theta) * speed;
+        sparkVel[i * 3 + 1] = Math.sin(phi) * Math.sin(theta) * speed;
+        sparkVel[i * 3 + 2] = Math.cos(phi) * speed;
+    }
+    const sparkGeo = new THREE.BufferGeometry();
+    sparkGeo.setAttribute('position', new THREE.BufferAttribute(sparkPos, 3));
+    const sparkMat = new THREE.PointsMaterial({
+        color: 0xbfffe8, size: 0.07, transparent: true, opacity: 0,
+        blending: THREE.AdditiveBlending, depthWrite: false,
+    });
+    const sparks = new THREE.Points(sparkGeo, sparkMat);
+    sparks.visible = false;
+    scene.add(sparks);
+    let burstT = -1; // -1 = not started, >=0 = seconds into the burst
+
     // ---- Interaction state ----
     const mouse = new THREE.Vector2(0, 0);
     const targetMouse = new THREE.Vector2(0, 0);
@@ -290,8 +313,34 @@ function init() {
         uniforms.uFlare.value = prefersReduced ? 0 : flare;
         if (!ignited && introP >= 0.38) {
             ignited = true;
-            document.body.classList.add('intro-ignite'); // fires the CSS flash + shockwave
+            document.body.classList.add('intro-ignite'); // fires the CSS flash
+            if (!prefersReduced) { burstT = 0; sparks.visible = true; } // launch the spark explosion
         }
+
+        // Animate the spark explosion (outward, fading) + a quick camera shake.
+        let shake = 0;
+        if (burstT >= 0) {
+            burstT += dt;
+            const bp = burstT / 1.1;
+            if (bp >= 1) {
+                sparks.visible = false; burstT = -2;
+            } else {
+                const e = 1 - Math.pow(1 - bp, 3); // ease-out outward
+                const sp = sparkGeo.attributes.position.array;
+                for (let i = 0; i < SPARKS; i++) {
+                    sp[i * 3]     = sparkVel[i * 3]     * e * 0.55;
+                    sp[i * 3 + 1] = sparkVel[i * 3 + 1] * e * 0.55;
+                    sp[i * 3 + 2] = sparkVel[i * 3 + 2] * e * 0.55;
+                }
+                sparkGeo.attributes.position.needsUpdate = true;
+                sparkMat.opacity = (1 - bp) * 0.95;
+                sparkMat.size = 0.07 * (1 - bp * 0.6);
+                sparks.position.copy(group.position); // emanate from the core
+                if (bp < 0.28) shake = (1 - bp / 0.28) * 0.16;
+            }
+        }
+        camera.position.x = shake ? (Math.random() - 0.5) * shake : 0;
+        camera.position.y = shake ? (Math.random() - 0.5) * shake : 0;
 
         // ease the displacement in on load (with an intro surge for energy)
         uniforms.uAmp.value += (uniforms.uAmpTarget.value - uniforms.uAmp.value) * 0.02;
