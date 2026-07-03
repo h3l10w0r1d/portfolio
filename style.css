@@ -264,6 +264,11 @@ body.intro-ignite .intro-flash { animation: introFlash 1s cubic-bezier(0.16, 1, 
 }
 body.no-3d .hero-fallback { display: block; }
 
+/* Drag-to-rotate affordance — the core is a real, grabbable object here. */
+.core-drag-zone { cursor: grab; }
+.core-drag-zone:active { cursor: grabbing; }
+body.core-grabbing, body.core-grabbing * { cursor: grabbing !important; user-select: none; }
+
 .hero-inner {
     position: relative; z-index: 2; width: 100%; max-width: var(--maxw);
     margin: 0 auto; padding: 0 clamp(20px, 5vw, 60px);
@@ -447,7 +452,7 @@ body.no-3d .hero-fallback { display: block; }
 .case-progress { position: absolute; left: 27px; top: 28px; width: 2px; height: 0; background: var(--grad); box-shadow: 0 0 12px var(--glow); z-index: 1; }
 .case-step {
     position: relative; display: grid; grid-template-columns: 72px 1fr; gap: 28px;
-    padding-bottom: 46px; min-height: 62vh; align-items: center;
+    padding-bottom: 24px; min-height: 44vh; align-items: center;
 }
 .case-step:last-child { padding-bottom: 0; }
 .case-step-num {
@@ -469,8 +474,9 @@ body.no-3d .hero-fallback { display: block; }
     opacity: calc(0.3 + var(--step-focus, 1) * 0.7);
     filter: saturate(calc(0.6 + var(--step-focus, 1) * 0.4));
 }
-.case-step-content { transition: transform .6s var(--ease); }
-.case-steps.spotlight .case-step:not(.is-active) .case-step-content { transform: translateY(10px); }
+/* Content drifts up into place as its step gains focus, and drifts on out —
+   motion fills the step's height instead of the text just sitting in empty space. */
+.case-step-content { transform: translateY(calc((1 - var(--step-focus, 1)) * 26px)); }
 .case-step-num { transition: transform .4s var(--ease), box-shadow .4s var(--ease), background .4s var(--ease), color .4s var(--ease), border-color .4s var(--ease); }
 .case-steps.spotlight .case-step.is-active .case-step-num {
     transform: scale(1.09);

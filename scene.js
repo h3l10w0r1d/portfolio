@@ -286,6 +286,40 @@ function init() {
     }
     window.addEventListener('scroll', updateProgress, { passive: true });
 
+    // ---- Drag-to-rotate: grab the core directly, over the hero or the case study ----
+    // Mouse-only (touch is left alone so page scrolling on phones is never hijacked).
+    let dragging = false;
+    let dragOffsetX = 0;               // accumulated manual tilt (persists across frames)
+    const dragVel = { x: 0, y: 0 };    // per-frame spin — decays via friction once released
+    const lastDragPt = { x: 0, y: 0 };
+    const dragZones = [document.getElementById('hero'), document.querySelector('.case-study')].filter(Boolean);
+
+    function beginDrag(e) {
+        if (e.pointerType && e.pointerType !== 'mouse') return;
+        if (e.button !== undefined && e.button !== 0) return;
+        if (e.target.closest('a, button, .btn')) return;
+        dragging = true;
+        lastDragPt.x = e.clientX; lastDragPt.y = e.clientY;
+        document.body.classList.add('core-grabbing');
+    }
+    function duringDrag(e) {
+        if (!dragging) return;
+        dragVel.y = (e.clientX - lastDragPt.x) * 0.006;
+        dragVel.x = (e.clientY - lastDragPt.y) * 0.006;
+        lastDragPt.x = e.clientX; lastDragPt.y = e.clientY;
+    }
+    function endDrag() {
+        dragging = false;
+        document.body.classList.remove('core-grabbing');
+    }
+    dragZones.forEach(function (zone) {
+        zone.classList.add('core-drag-zone');
+        zone.addEventListener('pointerdown', beginDrag);
+    });
+    window.addEventListener('pointermove', duringDrag);
+    window.addEventListener('pointerup', endDrag);
+    window.addEventListener('pointercancel', endDrag);
+
     // ---- Sizing ----
     function resize() {
         const w = window.innerWidth;
@@ -381,9 +415,13 @@ function init() {
         group.position.set(ix, iy, iz);
         halo.position.set(ix * 0.92, iy * 0.92, iz);
 
+        // Manual drag spin — accumulates while grabbed, decays like real momentum after release.
+        dragOffsetX += dragVel.x;
+        if (!dragging) { dragVel.x *= 0.94; dragVel.y *= 0.94; }
+
         const spin = prefersReduced ? 0 : 0.12;
-        group.rotation.y += dt * spin * (1 + (1 - introE) * 4 + cf * (isMobile ? 1.2 : 2.6)); // spins up while forming or in focus
-        group.rotation.x = mouse.y * 0.2 + p * 0.6;
+        group.rotation.y += dt * spin * (1 + (1 - introE) * 4 + cf * (isMobile ? 1.2 : 2.6)) + dragVel.y; // spins up while forming or in focus
+        group.rotation.x = mouse.y * 0.2 + p * 0.6 + dragOffsetX;
         group.rotation.z = p * 0.5;
         wire.rotation.y -= dt * spin * 1.6;
         wire.rotation.z += dt * 0.04;
