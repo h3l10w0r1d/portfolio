@@ -254,7 +254,7 @@ body.intro-ignite .intro-flash { animation: introFlash 1s cubic-bezier(0.16, 1, 
 }
 @media (max-width: 760px) {
     #hero { align-items: flex-start; min-height: auto; padding: 116px 0 80px; }
-    #hero::after { background: linear-gradient(180deg, rgba(4,7,11,.5) 0%, rgba(4,7,11,.78) 60%, rgba(4,7,11,.92) 100%); }
+    #hero::after { background: linear-gradient(180deg, rgba(4,7,11,.74) 0%, rgba(4,7,11,.82) 55%, rgba(4,7,11,.94) 100%); }
     .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 18px; }
     .scroll-indicator { display: none; }
 }
