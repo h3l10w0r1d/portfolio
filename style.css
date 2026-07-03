@@ -431,8 +431,9 @@ body.no-3d .hero-fallback { display: block; }
 .case-study {
     position: relative; margin-top: 28px; padding: clamp(28px, 5vw, 56px);
     border-radius: 26px; overflow: hidden; border: 1px solid rgba(0,255,163,.22);
-    background: linear-gradient(150deg, rgba(0,255,163,.06), rgba(43,188,230,.05));
-    backdrop-filter: blur(10px);
+    background: linear-gradient(150deg, rgba(0,255,163,.08), rgba(43,188,230,.06)), rgba(6, 10, 16, 0.86);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
 }
 .case-glow { position: absolute; width: 420px; height: 420px; border-radius: 50%; top: -160px; left: -100px; filter: blur(30px); pointer-events: none; background: radial-gradient(circle, rgba(0,255,163,.22), transparent 70%); }
 .case-header { position: relative; margin-bottom: 34px; }
@@ -444,7 +445,10 @@ body.no-3d .hero-fallback { display: block; }
 .case-steps { position: relative; margin: 6px 0 34px; }
 .case-steps::before { content: ''; position: absolute; left: 27px; top: 28px; bottom: 28px; width: 2px; background: var(--border); }
 .case-progress { position: absolute; left: 27px; top: 28px; width: 2px; height: 0; background: var(--grad); box-shadow: 0 0 12px var(--glow); z-index: 1; }
-.case-step { position: relative; display: grid; grid-template-columns: 72px 1fr; gap: 28px; padding-bottom: 46px; }
+.case-step {
+    position: relative; display: grid; grid-template-columns: 72px 1fr; gap: 28px;
+    padding-bottom: 46px; min-height: 62vh; align-items: center;
+}
 .case-step:last-child { padding-bottom: 0; }
 .case-step-num {
     width: 56px; height: 56px; display: flex; align-items: center; justify-content: center;
@@ -456,20 +460,27 @@ body.no-3d .hero-fallback { display: block; }
 .case-step-head { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.2rem, 2.6vw, 1.65rem); line-height: 1.22; color: var(--text-bright); margin-bottom: 12px; }
 .case-step-content p { color: var(--text); font-size: 1.02rem; line-height: 1.65; max-width: 56ch; }
 
-/* Awwwards-style scroll spotlight — lit only when GSAP enables `.spotlight`
-   (without GSAP every step stays fully visible, so content is never hidden). */
-.case-step { transition: opacity .55s var(--ease), filter .55s var(--ease); }
+/* Awwwards-style scroll spotlight — GSAP drives --step-focus (0..1) continuously
+   as each beat crosses the centre of the viewport while you scroll. Only the
+   TEXT dims; the number badge itself always keeps a fully opaque background,
+   so the timeline behind it can never show through.
+   Without GSAP, --step-focus is unset and every step reads at full strength. */
+.case-label, .case-step-head, .case-step-content {
+    opacity: calc(0.3 + var(--step-focus, 1) * 0.7);
+    filter: saturate(calc(0.6 + var(--step-focus, 1) * 0.4));
+}
 .case-step-content { transition: transform .6s var(--ease); }
-.case-step-num { transition: transform .5s var(--ease), box-shadow .5s var(--ease), background .5s var(--ease), color .5s var(--ease), border-color .5s var(--ease); }
-.case-steps.spotlight .case-step { opacity: .24; filter: saturate(.55); }
-.case-steps.spotlight .case-step.is-active { opacity: 1; filter: none; }
-.case-steps.spotlight .case-step:not(.is-active) .case-step-content { transform: translateY(12px); }
+.case-steps.spotlight .case-step:not(.is-active) .case-step-content { transform: translateY(10px); }
+.case-step-num { transition: transform .4s var(--ease), box-shadow .4s var(--ease), background .4s var(--ease), color .4s var(--ease), border-color .4s var(--ease); }
 .case-steps.spotlight .case-step.is-active .case-step-num {
     transform: scale(1.09);
     color: #bafce2;
     border-color: rgba(0,255,163,.65);
     background: linear-gradient(rgba(0,255,163,.3), rgba(0,255,163,.12)), var(--bg-2);
     box-shadow: 0 0 30px var(--glow), 0 0 0 5px rgba(0,255,163,.08);
+}
+@media (max-width: 760px) {
+    .case-step { min-height: 0; }
 }
 
 .case-footer { position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px; padding-top: 26px; border-top: 1px solid var(--border); }

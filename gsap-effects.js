@@ -80,27 +80,32 @@
         gsap.fromTo(caseProgress, { height: 0 }, {
             height: function () { return Math.max(0, caseSteps.offsetHeight - 56); },
             ease: 'none',
-            scrollTrigger: { trigger: caseSteps, start: 'top 65%', end: 'bottom 75%', scrub: true }
+            scrollTrigger: { trigger: caseSteps, start: 'top 75%', end: 'bottom 25%', scrub: true }
         });
     }
 
-    // Awwwards-style moving spotlight: light the active step, dim the rest.
+    // Awwwards-style moving spotlight: each beat's focus (0..1) tracks how
+    // close it is to the centre of the viewport, updated every scroll tick —
+    // so the story reads continuously instead of snapping between steps.
     if (caseSteps) {
         const steps = gsap.utils.toArray('.case-step');
         if (steps.length) {
             caseSteps.classList.add('spotlight');
-            const setActive = function (active) {
-                steps.forEach(function (s) { s.classList.toggle('is-active', s === active); });
-            };
-            steps.forEach(function (step) {
+            steps.forEach(function (step, i) {
+                step.style.setProperty('--step-focus', i === 0 ? 1 : 0.3);
                 ScrollTrigger.create({
                     trigger: step,
-                    start: 'top 62%',
-                    end: 'bottom 45%',
-                    onToggle: function (self) { if (self.isActive) setActive(step); }
+                    start: 'top 85%',
+                    end: 'bottom 20%',
+                    scrub: true,
+                    onUpdate: function (self) {
+                        // Triangle wave: 0 at the edges, 1 when the step is centred.
+                        const focus = 1 - Math.abs(self.progress * 2 - 1);
+                        step.style.setProperty('--step-focus', focus.toFixed(3));
+                        step.classList.toggle('is-active', focus > 0.55);
+                    }
                 });
             });
-            setActive(steps[0]); // first beat lit until you scroll
         }
     }
 
