@@ -432,7 +432,9 @@ function init() {
         const baseScale = 1.0 - 0.16 * enter - 0.05 * Math.sin(p * Math.PI);
         const introScale = prefersReduced ? introE : Math.max(0.02, easeOutBack(introP));
         // On phones the core is smaller and swells less, so text stays the star.
-        group.scale.setScalar(baseScale * introScale * (1 + cf * (isMobile ? 0.08 : 0.22)) * (isMobile ? 0.82 : 1.0));
+        // No glass panel sits between the core and the case-study text, so keep the
+        // swell modest here too — it's a backdrop presence, not a competing subject.
+        group.scale.setScalar(baseScale * introScale * (1 + cf * (isMobile ? 0.06 : 0.1)) * (isMobile ? 0.82 : 1.0));
         // particles converge inward from a wide cloud as the core forms
         const haloConverge = lerp(3.4, 1.0, introE);
         halo.scale.setScalar((1.0 + p * 0.5) * haloConverge);
@@ -446,7 +448,7 @@ function init() {
         // ---- Presence: fades in on intro, bold in hero, ambient afterwards ----
         // Phones settle to a fainter ambient level so the core never fights the text.
         const ambient = isMobile ? 0.4 : 0.55;
-        const cfPresence = isMobile ? 0.12 : 0.3;
+        const cfPresence = isMobile ? 0.08 : 0.14;
         const ga = Math.min(1.0, lerp(1.0, ambient, smoothstep(0.02, 0.16, p)) + cf * cfPresence);
         const introAlpha = Math.min(1, introP * 2.2);
         const dim = isMobile ? lerp(1.0, 0.6, Math.min(1, introP)) : 1.0; // keep the intro bright, calm it after
