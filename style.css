@@ -115,6 +115,35 @@ body::before {
 }
 @media (hover: none) { #cursor-glow { display: none; } }
 
+/* ===== CUSTOM PRECISION CURSOR (dot + trailing ring) ===== */
+/* Desktop/mouse only — never fights native touch behaviour, and the native
+   cursor stays hidden only once JS confirms this input supports hover. */
+#cursor-dot, #cursor-ring {
+    position: fixed; top: 0; left: 0; pointer-events: none; z-index: 10002;
+    border-radius: 50%; transform: translate(-50%, -50%); opacity: 0;
+    transition: opacity .25s ease;
+}
+#cursor-dot {
+    width: 6px; height: 6px; background: var(--green);
+    box-shadow: 0 0 8px var(--glow);
+}
+#cursor-ring {
+    width: 34px; height: 34px; border: 1px solid rgba(0,255,163,.5);
+    transition: opacity .25s ease, width .25s var(--ease), height .25s var(--ease), border-color .25s ease, background .25s ease;
+}
+body.cursor-ready #cursor-dot, body.cursor-ready #cursor-ring { opacity: 1; }
+body.cursor-ready { cursor: none; }
+body.cursor-ready a, body.cursor-ready button, body.cursor-ready .btn { cursor: none; }
+#cursor-ring.cursor-hover {
+    width: 54px; height: 54px;
+    background: rgba(0,255,163,.1); border-color: var(--green);
+}
+#cursor-ring.cursor-drag { width: 64px; height: 64px; background: rgba(0,255,163,.14); border-color: var(--green-soft); }
+@media (hover: none), (pointer: coarse) {
+    #cursor-dot, #cursor-ring { display: none; }
+    body.cursor-ready { cursor: auto; }
+}
+
 /* ===== SCROLL PROGRESS ===== */
 #scroll-progress {
     position: fixed; top: 0; left: 0; height: 3px; width: 0%; z-index: 1001;

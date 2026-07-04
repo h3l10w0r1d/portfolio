@@ -80,6 +80,38 @@ document.addEventListener('mousemove', (e) => {
     cursorGlow.style.top = e.clientY + 'px';
 });
 
+// ===== CUSTOM PRECISION CURSOR (dot snaps to the pointer, ring trails it) =====
+// Only activates once a real mouse movement is seen, so touch devices (which
+// can fire a single synthetic mousemove) never get stuck with cursor:none.
+const cursorDot = document.getElementById('cursor-dot');
+const cursorRing = document.getElementById('cursor-ring');
+if (cursorDot && cursorRing && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    let activated = false;
+    let ringX = 0, ringY = 0;
+    const HOVER_SELECTOR = 'a, button, .btn, .project-card, .github-card, .skill-item, .timeline-card, .social-link, .contact-link, input, textarea, .rail-dot';
+
+    document.addEventListener('mousemove', (e) => {
+        if (!activated) { activated = true; document.body.classList.add('cursor-ready'); }
+        cursorDot.style.left = e.clientX + 'px';
+        cursorDot.style.top = e.clientY + 'px';
+        const hovering = e.target.closest && e.target.closest(HOVER_SELECTOR);
+        cursorRing.classList.toggle('cursor-hover', !!hovering && !document.body.classList.contains('core-grabbing'));
+    });
+
+    (function trailRing() {
+        ringX += (parseFloat(cursorDot.style.left || 0) - ringX) * 0.18;
+        ringY += (parseFloat(cursorDot.style.top || 0) - ringY) * 0.18;
+        cursorRing.style.left = ringX + 'px';
+        cursorRing.style.top = ringY + 'px';
+        requestAnimationFrame(trailRing);
+    })();
+
+    // The 3D core's own drag state (scene.js) gets a distinct ring treatment.
+    new MutationObserver(() => {
+        cursorRing.classList.toggle('cursor-drag', document.body.classList.contains('core-grabbing'));
+    }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+}
+
 // ===== NAVBAR SCROLL =====
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
@@ -87,6 +119,25 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 // ===== SMOOTH SCROLL FOR IN-PAGE ANCHORS =====
+// A custom eased scroll reads more premium than native `scrollIntoView` smooth
+// behaviour, which varies by browser and feels linear/abrupt on arrival.
+const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
+
+function smoothScrollTo(targetY, duration = 900) {
+    const startY = window.scrollY;
+    const delta = targetY - startY;
+    const startTime = performance.now();
+    function tick(now) {
+        const t = Math.min(1, (now - startTime) / duration);
+        // behavior:'auto' is required here — html has scroll-behavior:smooth
+        // globally, which would otherwise let the browser's own native easing
+        // fight this custom easing on every frame, causing lag/overshoot.
+        window.scrollTo({ top: startY + delta * easeOutCubic(t), left: 0, behavior: 'auto' });
+        if (t < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+}
+
 // Covers nav links, chapter-rail dots, the scroll indicator — anything href="#..."
 document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', (e) => {
@@ -95,7 +146,9 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
         const target = document.querySelector(href);
         if (target) {
             e.preventDefault();
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const navH = navbar ? navbar.offsetHeight : 0;
+            const targetY = Math.max(0, target.getBoundingClientRect().top + window.scrollY - navH - 12);
+            smoothScrollTo(targetY);
         }
     });
 });
