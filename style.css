@@ -267,8 +267,16 @@ body.intro-ignite .intro-flash { animation: introFlash 1s cubic-bezier(0.16, 1, 
 .btn-primary:hover svg { transform: translateX(4px); }
 .btn-outline { border-color: var(--border); color: var(--text-bright); background: var(--surface); }
 .btn-outline:hover { border-color: var(--border-hover); box-shadow: 0 0 22px var(--glow); }
-.btn-ghost { color: var(--text-dim); border-color: var(--border); }
-.btn-ghost:hover { color: var(--green); border-color: var(--border-hover); }
+
+/* Résumé download — a lightweight utility link, not a third competing CTA. */
+.hero-resume-link {
+    display: inline-flex; align-items: center; gap: 8px; margin-top: 20px;
+    font-family: var(--font-mono); font-size: .85rem; color: var(--text-dim);
+    text-shadow: 0 2px 16px rgba(4,7,11,.8); transition: color .25s var(--ease);
+}
+.hero-resume-link svg { transition: transform .25s var(--ease); opacity: .85; }
+.hero-resume-link:hover { color: var(--green-soft); }
+.hero-resume-link:hover svg { transform: translateY(2px); opacity: 1; }
 
 /* ===== PERSISTENT 3D CORE LAYER ===== */
 /* Fixed, full-viewport, behind all content — it travels with you as you scroll. */
