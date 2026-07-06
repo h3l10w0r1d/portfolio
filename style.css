@@ -632,9 +632,20 @@ body.core-grabbing, body.core-grabbing * { cursor: grabbing !important; user-sel
 .visitor-count { color: var(--green); font-weight: 500; }
 .footer-built { font-family: var(--font-mono); font-size: .8rem; color: var(--text-dim); }
 
-/* ===== FROSTED GLASS (readability over the moving 3D core) ===== */
+/* ===== FROSTED GLASS (readability over the moving 3D core) =====
+   These are uniform grid items — the core wanders behind the page at
+   different horizontal positions as you scroll, and at low opacity it was
+   showing through vividly on whichever card it happened to drift behind,
+   while its neighbours stayed flat. Higher, near-opaque backgrounds keep
+   every card in a row looking the same regardless of what's moving back there. */
 .timeline-card, .project-card, .skill-category, .edu-card, .language-card,
-.hobby-card, .github-card, .contact-link, .fact, .linkedin-embed, .next-feature {
+.hobby-card, .github-card, .contact-link, .fact {
+    background-color: rgba(8, 13, 19, 0.88);
+    backdrop-filter: blur(10px) saturate(1.05);
+    -webkit-backdrop-filter: blur(10px) saturate(1.05);
+}
+/* Showcase panels — deliberately more atmospheric, the core is meant to show through. */
+.linkedin-embed, .next-feature {
     background-color: rgba(9, 14, 20, 0.62);
     backdrop-filter: blur(10px) saturate(1.05);
     -webkit-backdrop-filter: blur(10px) saturate(1.05);
