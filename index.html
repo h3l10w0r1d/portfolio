@@ -569,8 +569,14 @@
                 <span class="section-tag">// THE TOOLKIT</span>
             </div>
             <h2 class="section-title reveal-up">How I get it <span class="accent">done</span></h2>
-            <p class="skills-graph-hint reveal-up">Drag a node to see how the skills connect — or scroll past for the plain list.</p>
-            <div id="skills-graph" class="skills-graph reveal-up" aria-hidden="true"></div>
+            <p class="skills-graph-hint reveal-up">Drag a node to move it, drag empty space to pan, Ctrl/Cmd + scroll (or pinch) to zoom.</p>
+            <div id="skills-graph" class="skills-graph reveal-up" aria-hidden="true">
+                <div class="skills-graph-controls">
+                    <button type="button" class="sg-zoom-btn" data-zoom="in" aria-label="Zoom in">+</button>
+                    <button type="button" class="sg-zoom-btn" data-zoom="out" aria-label="Zoom out">&minus;</button>
+                    <button type="button" class="sg-zoom-btn sg-zoom-reset" data-zoom="reset" aria-label="Reset view">&#8634;</button>
+                </div>
+            </div>
             <div class="skills-grid" id="skills-grid-fallback">
                 <div class="skill-category reveal-up">
                     <h3 class="skill-cat-title">Product &amp; Agile</h3>
@@ -895,6 +901,7 @@
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script defer src="gsap-effects.js"></script>
     <!-- Interactive skills graph (progressive enhancement over the plain list) -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
     <script defer src="skills-graph.js"></script>
     <!-- Vercel Analytics -->
     <script defer src="/_vercel/insights/script.js"></script>

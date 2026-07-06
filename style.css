@@ -548,32 +548,39 @@ body.core-grabbing, body.core-grabbing * { cursor: grabbing !important; user-sel
    the plain list, so nothing here is ever the only way to read the content). */
 .skills-graph-hint { margin-top: 14px; color: var(--text-dim); font-size: .9rem; }
 .skills-graph {
-    display: none; position: relative; margin-top: 26px; height: 620px;
+    display: none; position: relative; margin-top: 26px; height: 760px;
     border-radius: 22px; border: 1px solid var(--border);
     background-color: rgba(8, 13, 19, 0.88);
     overflow: hidden; cursor: grab;
 }
 .skills-graph.is-ready { display: block; }
 .skills-graph.is-dragging { cursor: grabbing; }
-.skills-graph svg { display: block; width: 100%; height: 100%; }
+.skills-graph svg { display: block; width: 100%; height: 100%; touch-action: pan-y; }
 .skills-graph .sg-link { stroke: var(--green); stroke-opacity: .16; transition: stroke-opacity .3s var(--ease); }
-.skills-graph .sg-link.sg-lit { stroke-opacity: .75; stroke: var(--green-soft); }
-.skills-graph .sg-node circle {
-    transition: fill .3s var(--ease), stroke .3s var(--ease), r .25s var(--ease);
-}
+.skills-graph .sg-link.sg-lit { stroke-opacity: .85; stroke: var(--green-soft); stroke-width: 1.4; }
+.skills-graph .sg-node circle { transition: stroke .25s var(--ease), fill .25s var(--ease); }
 .skills-graph .sg-node text {
-    font-family: var(--font-mono); fill: var(--text); pointer-events: none;
-    paint-order: stroke; stroke: rgba(4,7,11,.9); stroke-width: 3px; stroke-linejoin: round;
+    font-family: var(--font-mono); pointer-events: none;
+    paint-order: stroke; stroke: rgba(4,7,11,.92); stroke-width: 3px; stroke-linejoin: round;
 }
-.skills-graph .sg-node.sg-hub circle { fill: rgba(0,255,163,.16); stroke: var(--green); stroke-width: 1.5; }
-.skills-graph .sg-node.sg-hub text { font-weight: 700; fill: var(--green-soft); font-size: 13px; }
-.skills-graph .sg-node.sg-leaf circle { fill: rgba(34,211,238,.12); stroke: rgba(255,255,255,.25); stroke-width: 1; }
-.skills-graph .sg-node.sg-leaf text { font-size: 11px; }
-.skills-graph .sg-node { cursor: grab; }
-.skills-graph .sg-node.sg-lit circle { stroke: var(--green-soft); fill: rgba(0,255,163,.3); }
-.skills-graph .sg-node.sg-dim { opacity: .3; }
+.skills-graph .sg-node { cursor: grab; transition: opacity .25s var(--ease); }
+.skills-graph .sg-node.sg-lit circle { stroke-width: 2.5; }
+.skills-graph .sg-node.sg-dim { opacity: .22; }
+
+/* Zoom controls */
+.skills-graph-controls {
+    position: absolute; top: 16px; right: 16px; z-index: 3;
+    display: flex; flex-direction: column; gap: 8px;
+}
+.sg-zoom-btn {
+    width: 34px; height: 34px; border-radius: 10px; border: 1px solid var(--border);
+    background: rgba(8,13,19,.85); color: var(--green-soft); font-family: var(--font-mono);
+    font-size: 1.1rem; line-height: 1; cursor: pointer; transition: all .2s var(--ease);
+}
+.sg-zoom-btn:hover { border-color: var(--border-hover); color: var(--green); box-shadow: 0 0 12px var(--glow); }
+.sg-zoom-reset { font-size: 1rem; }
 @media (max-width: 760px) {
-    .skills-graph { height: 460px; }
+    .skills-graph { height: 560px; }
 }
 
 .skills-grid { margin-top: 50px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
