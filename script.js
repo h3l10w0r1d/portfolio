@@ -42,7 +42,9 @@ class Particle {
     }
 }
 
-const particleCount = Math.min(70, Math.floor(window.innerWidth / 18));
+const lowPower = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4)
+    || (navigator.deviceMemory && navigator.deviceMemory <= 4);
+const particleCount = Math.min(lowPower ? 36 : 70, Math.floor(window.innerWidth / 18));
 for (let i = 0; i < particleCount; i++) particles.push(new Particle());
 
 function drawConnections() {
@@ -63,13 +65,24 @@ function drawConnections() {
     }
 }
 
+let particlesRafId = null;
 function animateParticles() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     particles.forEach(p => { p.update(); p.draw(); });
     drawConnections();
-    requestAnimationFrame(animateParticles);
+    particlesRafId = requestAnimationFrame(animateParticles);
 }
 animateParticles();
+
+// Stop burning CPU on this canvas while the tab is in the background.
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        if (particlesRafId) cancelAnimationFrame(particlesRafId);
+        particlesRafId = null;
+    } else if (!particlesRafId) {
+        animateParticles();
+    }
+});
 
 // ===== CURSOR GLOW =====
 const cursorGlow = document.getElementById('cursor-glow');

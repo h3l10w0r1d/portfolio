@@ -30,17 +30,33 @@ if (canvas && !document.body.classList.contains('no-3d')) {
     init();
 }
 
+// Rough "is this a weak machine" heuristic — low core count or low RAM.
+// Used to scale geometry/resolution down automatically rather than shipping
+// desktop-grade settings to every device.
+const lowPower = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4)
+    || (navigator.deviceMemory && navigator.deviceMemory <= 4);
+
 function init() {
     let renderer;
+    // 'default' (not 'high-performance') so laptops with hybrid graphics
+    // aren't forced to wake the discrete GPU just for a background shape.
+    // Some WebGL implementations reject antialias:false + powerPreference:
+    // 'default' together on certain canvases — fall back to safer options
+    // rather than losing the whole scene if that combination ever throws.
     try {
-        renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'high-performance' });
+        renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: !lowPower, powerPreference: 'default' });
     } catch (e) {
-        fail();
-        return;
+        try {
+            renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'default' });
+        } catch (e2) {
+            fail();
+            return;
+        }
     }
 
     const isMobile = window.innerWidth <= 768;
-    const DPR = Math.min(window.devicePixelRatio || 1, isMobile ? 1.5 : 2);
+    const dprCap = lowPower ? 1 : (isMobile ? 1.25 : 1.5);
+    const DPR = Math.min(window.devicePixelRatio || 1, dprCap);
     renderer.setPixelRatio(DPR);
     renderer.setClearColor(0x000000, 0);
 
@@ -52,7 +68,10 @@ function init() {
     scene.add(group);
 
     // ---- Core: displaced icosahedron with custom shader ----
-    const detail = isMobile ? 24 : 48;
+    // Face count grows ~quadratically with detail (20 * detail^2), and the
+    // fragment shader does full lighting + fresnel + reflection per pixel —
+    // keep this modest so it doesn't become a space heater.
+    const detail = lowPower ? 14 : (isMobile ? 18 : 26);
     const geo = new THREE.IcosahedronGeometry(1.35, detail);
 
     const uniforms = {
@@ -215,7 +234,7 @@ function init() {
     group.add(wire);
 
     // ---- Particle halo ----
-    const count = isMobile ? 280 : 650;
+    const count = lowPower ? 150 : (isMobile ? 280 : 650);
     const positions = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
         const r = 2.1 + Math.random() * 1.9;
@@ -235,7 +254,7 @@ function init() {
     scene.add(halo);
 
     // ---- Ignition spark burst (explodes outward when the core arrives) ----
-    const SPARKS = isMobile ? 160 : 340;
+    const SPARKS = lowPower ? 90 : (isMobile ? 160 : 340);
     const sparkPos = new Float32Array(SPARKS * 3);
     const sparkVel = new Float32Array(SPARKS * 3);
     for (let i = 0; i < SPARKS; i++) {
@@ -339,6 +358,20 @@ function init() {
     const INTRO_DUR = prefersReduced ? 0.2 : 2.8; // seconds — the core "opens" the page
     let introDone = false;
     let ignited = false;
+    let frameParity = 0;
+
+    // Stop burning GPU/CPU entirely while the tab is in the background —
+    // the render loop previously ran forever regardless of visibility.
+    let rafId = null;
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+            if (rafId) cancelAnimationFrame(rafId);
+            rafId = null;
+        } else if (!rafId) {
+            clock.getDelta(); // discard the elapsed-while-hidden gap so dt doesn't jump
+            rafId = requestAnimationFrame(frame);
+        }
+    });
 
     function frame() {
         const dt = clock.getDelta();
@@ -462,8 +495,16 @@ function init() {
             window.dispatchEvent(new Event('intro-complete'));
         }
 
-        renderer.render(scene, camera);
-        requestAnimationFrame(frame);
+        // Once things have settled (past the intro, not being dragged, no case-
+        // study focus, no spark burst in flight), the core is just a slow ambient
+        // drift — skip real GPU submits on some frames rather than rendering an
+        // essentially-static scene at a full, heat-generating 60fps.
+        const calm = introDone && !dragging && cf < 0.05 && burstT < 0;
+        frameParity = (frameParity + 1) % (lowPower ? 3 : 2);
+        if (!calm || frameParity === 0) {
+            renderer.render(scene, camera);
+        }
+        rafId = requestAnimationFrame(frame);
     }
     frame();
 
