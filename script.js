@@ -296,8 +296,12 @@ document.querySelectorAll('.skill-category').forEach(card => {
 });
 
 // ===== INTRO / REVEAL =====
-// The 3D core (scene.js) plays an opening animation and dispatches
-// 'intro-complete'; we then fade the veil and bring the hero in.
+// The loading screen dismisses on its own timer (below); scene.js's 3D
+// intro (dolly-in + ignition) is signalled to *start* by 'site-revealed'
+// (see scene.js) so it plays live as the veil fades, instead of running to
+// completion invisibly while still loading. 'intro-complete' fires once
+// that animation actually finishes, which is when the core drops behind
+// the page content (see the body.intro CSS rule).
 const preloader = document.getElementById('preloader');
 let siteRevealed = false;
 
@@ -307,9 +311,8 @@ function revealSite() {
 
     if (preloader) preloader.classList.add('ending');
     document.body.classList.remove('preloading');
-    // Fires exactly once, on every path (real intro OR the 6s safety net) —
-    // other scripts (gsap-effects.js) use this to defer non-urgent setup
-    // work off the main thread until the intro animation is done playing.
+    // Fires exactly once — other scripts (gsap-effects.js, scene.js) use
+    // this to defer non-urgent setup work until the loading screen is gone.
     window.dispatchEvent(new Event('site-revealed'));
 
     // staggered hero entrance, synced with the veil fade
@@ -319,19 +322,18 @@ function revealSite() {
 
     setTimeout(() => {
         if (preloader) preloader.classList.add('hidden');
-        document.body.classList.remove('intro'); // core drops behind the content
     }, 900);
 }
+
+window.addEventListener('intro-complete', () => {
+    document.body.classList.remove('intro'); // core drops behind the content
+});
 
 if (!preloader) {
     // Pages without the intro veil (e.g. gallery) reveal immediately.
     document.body.classList.remove('preloading');
     document.body.classList.remove('intro');
 } else {
-    window.addEventListener('intro-complete', revealSite);
-    // Safety net: never stay stuck on the veil if the 3D never reports in.
-    setTimeout(revealSite, 6000);
-
     // Loading screen stays visible for a minimum of 4s (or until fonts
     // finish loading, whichever is later) — long enough for the heavier
     // scripts/animations to settle in, so there's never a blank veil or an
@@ -340,7 +342,10 @@ if (!preloader) {
     Promise.all([
         document.fonts ? document.fonts.ready : Promise.resolve(),
         new Promise(res => setTimeout(res, MIN_LOADING_MS))
-    ]).then(() => preloader.classList.add('loading-done'));
+    ]).then(() => {
+        preloader.classList.add('loading-done');
+        revealSite();
+    });
 }
 
 // ===== SCROLL PROGRESS BAR =====

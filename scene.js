@@ -378,7 +378,9 @@ function init() {
     // Stop burning GPU/CPU entirely while the tab is in the background —
     // the render loop previously ran forever regardless of visibility.
     let rafId = null;
+    let introStarted = false;
     document.addEventListener('visibilitychange', function () {
+        if (!introStarted) return; // nothing running yet — still waiting on the loading screen
         if (document.hidden) {
             if (rafId) cancelAnimationFrame(rafId);
             rafId = null;
@@ -522,7 +524,23 @@ function init() {
         }
         rafId = requestAnimationFrame(frame);
     }
-    frame();
+
+    // Everything above (shaders, geometry, renderer) is ready the instant this
+    // module loads — but the clock-driven intro (dolly-in + ignition) should
+    // only start counting once the loading screen actually reveals the page,
+    // not the moment the script parses. Otherwise the whole arrival animation
+    // plays out — and usually finishes — while still hidden/mid-loading, so
+    // the "reveal" is just a jump-cut to an already-settled core.
+    function beginIntro() {
+        if (introStarted) return;
+        introStarted = true;
+        frame();
+    }
+    if (document.body.classList.contains('preloading')) {
+        window.addEventListener('site-revealed', beginIntro, { once: true });
+    } else {
+        beginIntro();
+    }
 
     // Pause rendering when the hero is fully scrolled past (saves battery).
     // (Loop keeps running but it's cheap; kept simple for reliability.)
