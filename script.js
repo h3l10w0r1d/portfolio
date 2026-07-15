@@ -307,6 +307,10 @@ function revealSite() {
 
     if (preloader) preloader.classList.add('ending');
     document.body.classList.remove('preloading');
+    // Fires exactly once, on every path (real intro OR the 6s safety net) —
+    // other scripts (gsap-effects.js) use this to defer non-urgent setup
+    // work off the main thread until the intro animation is done playing.
+    window.dispatchEvent(new Event('site-revealed'));
 
     // staggered hero entrance, synced with the veil fade
     document.querySelectorAll('#hero .reveal-up').forEach((el, i) => {

@@ -184,17 +184,20 @@ body.cursor-ready a, body.cursor-ready button, body.cursor-ready .btn { cursor: 
 }
 .preloader-bar { width: 160px; height: 2px; background: var(--border); border-radius: 2px; overflow: hidden; }
 .preloader-bar-fill {
-    width: 0%; height: 100%; background: var(--grad); border-radius: 2px;
+    width: 100%; height: 100%; background: var(--grad); border-radius: 2px;
+    transform: scaleX(0); transform-origin: left center; will-change: transform;
     animation: preloaderFill 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
-@keyframes preloaderFill { from { width: 0%; } to { width: 100%; } }
+/* transform, not width — width animates layout every frame, scaleX is a
+   compositor-only transform, so it stays smooth even under main-thread load. */
+@keyframes preloaderFill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 .preloader-label {
     font-family: var(--font-mono); font-size: .72rem; letter-spacing: .1em;
     color: var(--text-dim);
 }
 @media (prefers-reduced-motion: reduce) {
     .preloader-logo { animation: none; }
-    .preloader-bar-fill { animation: none; width: 100%; }
+    .preloader-bar-fill { animation: none; transform: scaleX(1); }
 }
 
 /* During the intro the core sits above the veil; afterwards it drops behind content. */

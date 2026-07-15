@@ -154,6 +154,25 @@
             nodeSel.attr('transform', function (d) { return 'translate(' + d.x + ',' + d.y + ')'; });
         });
 
+    // This graph sits far below the fold — a D3 simulation starts ticking
+    // the instant it's created, so without this it runs continuous O(n^2)
+    // physics for several seconds starting at page load, competing with the
+    // hero/intro animation for the main thread while completely invisible.
+    // Freeze it immediately and only wake it once the section is actually
+    // about to be seen.
+    simulation.stop();
+    if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(function (entries) {
+            if (entries[0].isIntersecting) {
+                simulation.restart();
+                io.disconnect();
+            }
+        }, { rootMargin: '200px' });
+        io.observe(container);
+    } else {
+        simulation.restart();
+    }
+
     // ---- 5. Drag to explore ----
     let dragging = false;
     nodeSel.call(d3.drag()

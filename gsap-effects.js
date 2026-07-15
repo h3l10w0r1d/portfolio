@@ -9,6 +9,20 @@
 
     gsap.registerPlugin(ScrollTrigger);
 
+    // The ~50 ScrollTrigger.create() calls below each measure layout
+    // (getBoundingClientRect) the moment they're created. Doing all of that
+    // right on script load means it lands squarely inside the loading
+    // screen + 3D intro window, competing with that animation for the main
+    // thread — and scrolling is disabled during the intro anyway (see
+    // body.preloading), so nothing is lost by waiting until it's over.
+    if (document.body.classList.contains('preloading')) {
+        window.addEventListener('site-revealed', setup, { once: true });
+    } else {
+        setup();
+    }
+
+    function setup() {
+
     // Parallax helper — drifts an element on a transform-only scrub.
     function parallax(selector, fromY, toY, opts) {
         opts = opts || {};
@@ -150,4 +164,6 @@
 
     // Keep triggers accurate once fonts/images settle.
     window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+    ScrollTrigger.refresh(); // layout has changed since load if we waited for site-revealed
+    }
 })();
