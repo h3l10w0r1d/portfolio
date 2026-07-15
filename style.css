@@ -164,7 +164,7 @@ body.cursor-ready a, body.cursor-ready button, body.cursor-ready .btn { cursor: 
 #preloader.ending { opacity: 0; }
 #preloader.hidden { display: none; }
 
-/* Loading screen — visible for a minimum of ~1.5s (see script.js) while
+/* Loading screen — visible for a minimum of ~4s (see script.js) while
    fonts/scripts settle, so there's never a blank veil or a jarring instant
    cut into the 3D intro. Fades out on its own, independent of the veil. */
 .preloader-content {
@@ -186,7 +186,7 @@ body.cursor-ready a, body.cursor-ready button, body.cursor-ready .btn { cursor: 
 .preloader-bar-fill {
     width: 100%; height: 100%; background: var(--grad); border-radius: 2px;
     transform: scaleX(0); transform-origin: left center; will-change: transform;
-    animation: preloaderFill 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: preloaderFill 4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 /* transform, not width — width animates layout every frame, scaleX is a
    compositor-only transform, so it stays smooth even under main-thread load. */
