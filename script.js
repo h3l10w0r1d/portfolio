@@ -42,9 +42,11 @@ class Particle {
     }
 }
 
-const lowPower = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4)
-    || (navigator.deviceMemory && navigator.deviceMemory <= 4);
-const particleCount = Math.min(lowPower ? 36 : 70, Math.floor(window.innerWidth / 18));
+// See scene.js for why this doesn't gate on hardwareConcurrency alone
+// (Safari under-reports it for privacy even on powerful machines).
+const lowPower = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2
+    && (navigator.deviceMemory === undefined || navigator.deviceMemory <= 4);
+const particleCount = Math.min(lowPower ? 45 : 70, Math.floor(window.innerWidth / 18));
 for (let i = 0; i < particleCount; i++) particles.push(new Particle());
 
 function drawConnections() {

@@ -30,24 +30,26 @@ if (canvas && !document.body.classList.contains('no-3d')) {
     init();
 }
 
-// Rough "is this a weak machine" heuristic — low core count or low RAM.
-// Used to scale geometry/resolution down automatically rather than shipping
-// desktop-grade settings to every device.
-const lowPower = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4)
-    || (navigator.deviceMemory && navigator.deviceMemory <= 4);
+// Rough "is this a weak machine" heuristic. navigator.hardwareConcurrency
+// alone is NOT trustworthy for this — Safari/WebKit caps or under-reports it
+// for privacy reasons even on powerful Macs, so gating on "<=4 cores" alone
+// false-positives constantly. Require corroboration: only treat a device as
+// weak if it's a clearly-low core count AND (memory is also low, or the
+// memory API isn't available to contradict it).
+const lowPower = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2
+    && (navigator.deviceMemory === undefined || navigator.deviceMemory <= 4);
 
 function init() {
     let renderer;
     // 'default' (not 'high-performance') so laptops with hybrid graphics
     // aren't forced to wake the discrete GPU just for a background shape.
-    // Some WebGL implementations reject antialias:false + powerPreference:
-    // 'default' together on certain canvases — fall back to safer options
-    // rather than losing the whole scene if that combination ever throws.
+    // Retry with the plain defaults if that ever throws, rather than losing
+    // the whole scene over one rejected combination of context options.
     try {
-        renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: !lowPower, powerPreference: 'default' });
+        renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'default' });
     } catch (e) {
         try {
-            renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'default' });
+            renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'high-performance' });
         } catch (e2) {
             fail();
             return;
@@ -55,7 +57,7 @@ function init() {
     }
 
     const isMobile = window.innerWidth <= 768;
-    const dprCap = lowPower ? 1 : (isMobile ? 1.25 : 1.5);
+    const dprCap = lowPower ? 1.5 : (isMobile ? 1.5 : 1.75);
     const DPR = Math.min(window.devicePixelRatio || 1, dprCap);
     renderer.setPixelRatio(DPR);
     renderer.setClearColor(0x000000, 0);
@@ -71,7 +73,7 @@ function init() {
     // Face count grows ~quadratically with detail (20 * detail^2), and the
     // fragment shader does full lighting + fresnel + reflection per pixel —
     // keep this modest so it doesn't become a space heater.
-    const detail = lowPower ? 14 : (isMobile ? 18 : 26);
+    const detail = lowPower ? 20 : (isMobile ? 22 : 34);
     const geo = new THREE.IcosahedronGeometry(1.35, detail);
 
     const uniforms = {
@@ -234,7 +236,7 @@ function init() {
     group.add(wire);
 
     // ---- Particle halo ----
-    const count = lowPower ? 150 : (isMobile ? 280 : 650);
+    const count = lowPower ? 220 : (isMobile ? 280 : 650);
     const positions = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
         const r = 2.1 + Math.random() * 1.9;
@@ -254,7 +256,7 @@ function init() {
     scene.add(halo);
 
     // ---- Ignition spark burst (explodes outward when the core arrives) ----
-    const SPARKS = lowPower ? 90 : (isMobile ? 160 : 340);
+    const SPARKS = lowPower ? 130 : (isMobile ? 160 : 340);
     const sparkPos = new Float32Array(SPARKS * 3);
     const sparkVel = new Float32Array(SPARKS * 3);
     for (let i = 0; i < SPARKS; i++) {
