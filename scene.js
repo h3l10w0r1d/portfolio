@@ -41,20 +41,29 @@ const lowPower = navigator.hardwareConcurrency && navigator.hardwareConcurrency 
 
 function init() {
     let renderer;
-    // 'default' (not 'high-performance') so laptops with hybrid graphics
-    // aren't forced to wake the discrete GPU just for a background shape.
-    // Retry with the plain defaults if that ever throws, rather than losing
-    // the whole scene over one rejected combination of context options.
+    // NOTE: powerPreference:'default' was tried here to avoid waking a
+    // discrete GPU, but on hybrid-graphics laptops it can let the OS switch
+    // GPUs mid-session, which can trigger a WebGL context loss this scene
+    // didn't handle — the render loop would die silently and the page would
+    // fall back to its 6s safety-net reveal with no 3D ever appearing.
+    // 'high-performance' avoids that GPU-switch risk entirely.
     try {
-        renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'default' });
+        renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'high-performance' });
     } catch (e) {
-        try {
-            renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'high-performance' });
-        } catch (e2) {
-            fail();
-            return;
-        }
+        fail();
+        return;
     }
+
+    // Defensive: if the context is ever lost for any reason (driver crash,
+    // GPU switch, tab-discard-and-restore), fail gracefully to the CSS
+    // fallback instead of leaving a dead render loop for 6s of nothing.
+    let contextLost = false;
+    canvas.addEventListener('webglcontextlost', function (e) {
+        e.preventDefault();
+        contextLost = true;
+        console.warn('[scene] WebGL context lost — falling back to the static background.');
+        fail();
+    });
 
     const isMobile = window.innerWidth <= 768;
     const dprCap = lowPower ? 1.5 : (isMobile ? 1.5 : 1.75);
@@ -376,6 +385,7 @@ function init() {
     });
 
     function frame() {
+        if (contextLost) return; // stop the loop for good; fail() has already taken over
         const dt = clock.getDelta();
         const t = clock.elapsedTime;
 
