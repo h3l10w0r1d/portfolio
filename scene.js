@@ -9,6 +9,19 @@ const hero = document.getElementById('hero');
 
 const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+// Rough "is this a weak machine" heuristic. navigator.hardwareConcurrency
+// alone is NOT trustworthy for this — Safari/WebKit caps or under-reports it
+// for privacy reasons even on powerful Macs, so gating on "<=4 cores" alone
+// false-positives constantly. Require corroboration: only treat a device as
+// weak if it's a clearly-low core count AND (memory is also low, or the
+// memory API isn't available to contradict it).
+// NOTE: this MUST be declared before init() is ever called below — init()
+// reads it synchronously, and as a `const` it throws a TDZ ReferenceError
+// (crashing the whole module, every time, in every browser) if init() runs
+// first. That exact ordering bug was what actually broke the 3D entirely.
+const lowPower = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2
+    && (navigator.deviceMemory === undefined || navigator.deviceMemory <= 4);
+
 function fail() {
     // Reveal the CSS gradient fallback and bail out cleanly.
     document.body.classList.add('no-3d');
@@ -29,15 +42,6 @@ try {
 if (canvas && !document.body.classList.contains('no-3d')) {
     init();
 }
-
-// Rough "is this a weak machine" heuristic. navigator.hardwareConcurrency
-// alone is NOT trustworthy for this — Safari/WebKit caps or under-reports it
-// for privacy reasons even on powerful Macs, so gating on "<=4 cores" alone
-// false-positives constantly. Require corroboration: only treat a device as
-// weak if it's a clearly-low core count AND (memory is also low, or the
-// memory API isn't available to contradict it).
-const lowPower = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2
-    && (navigator.deviceMemory === undefined || navigator.deviceMemory <= 4);
 
 function init() {
     let renderer;
