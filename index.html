@@ -91,7 +91,7 @@
     <script type="importmap">
     {
         "imports": {
-            "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+            "three": "/vendor/three.module.js"
         }
     }
     </script>
@@ -926,12 +926,14 @@
     <script type="module" src="scene.js"></script>
     <!-- Interactions -->
     <script src="script.js"></script>
-    <!-- GSAP scroll effects (additive parallax layer) -->
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <!-- GSAP scroll effects (additive parallax layer) — vendored locally so
+         an ad-blocker/privacy extension or CDN hiccup can't take out every
+         scroll effect on the page (see vendor/README.md). -->
+    <script defer src="/vendor/gsap.min.js"></script>
+    <script defer src="/vendor/ScrollTrigger.min.js"></script>
     <script defer src="gsap-effects.js"></script>
     <!-- Interactive skills graph (progressive enhancement over the plain list) -->
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+    <script defer src="/vendor/d3.min.js"></script>
     <script defer src="skills-graph.js"></script>
     <!-- Vercel Analytics -->
     <script defer src="/_vercel/insights/script.js"></script>
