@@ -327,6 +327,16 @@ if (!preloader) {
     window.addEventListener('intro-complete', revealSite);
     // Safety net: never stay stuck on the veil if the 3D never reports in.
     setTimeout(revealSite, 6000);
+
+    // Loading screen stays visible for a minimum of 1.5s (or until fonts
+    // finish loading, whichever is later) — long enough for the heavier
+    // scripts/animations to settle in, so there's never a blank veil or an
+    // instant jump-cut into the 3D intro on a fast connection.
+    const MIN_LOADING_MS = 1500;
+    Promise.all([
+        document.fonts ? document.fonts.ready : Promise.resolve(),
+        new Promise(res => setTimeout(res, MIN_LOADING_MS))
+    ]).then(() => preloader.classList.add('loading-done'));
 }
 
 // ===== SCROLL PROGRESS BAR =====
