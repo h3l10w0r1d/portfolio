@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daron Serop — Incoming Student, UC San Diego | Yerevan, Armenia</title>
+    <meta name="description" content="Daron Serop — incoming student at the University of California, San Diego (Class of 2030). Former Student Body President at The Academy at MiraCosta and The MacDuffie School, admitted to 8 universities across 4 countries. Based in Yerevan, Armenia.">
+    <meta name="keywords" content="Daron Serop, Serop Daron, UC San Diego, University of California San Diego, Student Body President, The Academy at MiraCosta, The MacDuffie School, Quantum College, Yerevan Armenia">
+    <meta name="author" content="Daron Serop">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://armenghazaryan.am/daron-serop/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://armenghazaryan.am/daron-serop/">
+    <meta property="og:title" content="Daron Serop — Incoming Student, UC San Diego">
+    <meta property="og:description" content="Incoming student at the University of California, San Diego (Class of 2030). Former Student Body President at The Academy at MiraCosta and The MacDuffie School. Based in Yerevan, Armenia.">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Daron Serop">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Daron Serop — Incoming Student, UC San Diego">
+    <meta name="twitter:description" content="Incoming student at the University of California, San Diego (Class of 2030). Based in Yerevan, Armenia.">
+
+    <!-- Schema.org Person structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Daron Serop",
+        "url": "https://armenghazaryan.am/daron-serop/",
+        "description": "Incoming student at the University of California, San Diego (Class of 2030). Former Student Body President at The Academy at MiraCosta and The MacDuffie School.",
+        "email": "seropdaron@gmail.com",
+        "telephone": "+374 94 521281",
+        "nationality": "Armenian",
+        "knowsLanguage": ["Armenian", "English", "Russian", "Spanish", "Arabic"],
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Yerevan",
+            "addressCountry": "AM"
+        },
+        "alumniOf": [
+            { "@type": "EducationalOrganization", "name": "Quantum College" },
+            { "@type": "EducationalOrganization", "name": "The MacDuffie School" },
+            { "@type": "EducationalOrganization", "name": "The Academy at MiraCosta" },
+            { "@type": "CollegeOrUniversity", "name": "University of California, San Diego" }
+        ]
+    }
+    </script>
+
+    <!-- Placeholder favicon (initials monogram) — swap for a real one once provided -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2304070b'/%3E%3Ctext x='32' y='41' font-family='Arial, sans-serif' font-size='24' font-weight='700' fill='%2300ffa3' text-anchor='middle'%3EDS%3C/text%3E%3C/svg%3E">
+    <meta name="theme-color" content="#04070b">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Shared design system with the main site — same look, new content only -->
+    <link rel="stylesheet" href="/style.css">
+
+    <!-- Three.js for the 3D hero core -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "/vendor/three.module.js"
+        }
+    }
+    </script>
+
+    <style>
+        /* Placeholder identity: no logo/photo supplied yet, so an initials
+           monogram stands in everywhere the main site uses an image. Swap
+           these out once real assets are provided. */
+        .logo-mono {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 40px; height: 40px; border-radius: 10px;
+            background: var(--grad); color: var(--bg); font-family: var(--font-display);
+            font-weight: 800; font-size: .95rem; letter-spacing: .02em;
+        }
+        .nav-logo:hover .logo-mono { transform: scale(1.06) rotate(-2deg); }
+        .footer-logo .logo-mono { width: 32px; height: 32px; font-size: .8rem; border-radius: 8px; }
+        .preloader-logo.logo-mono { width: 52px; height: 52px; font-size: 1.1rem; border-radius: 14px; }
+        .photo-mono {
+            width: 100%; aspect-ratio: 4/5; display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(160deg, rgba(0,255,163,.14), rgba(43,188,230,.14));
+            font-family: var(--font-display); font-weight: 800; font-size: clamp(3rem, 8vw, 5rem);
+            color: var(--text-bright); letter-spacing: .04em;
+        }
+        .quick-facts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; }
+    </style>
+</head>
+<body class="preloading intro">
+
+    <!-- Intro veil — the 3D core assembles on top of this, then it fades away -->
+    <div id="preloader">
+        <div class="preloader-content" aria-hidden="true">
+            <span class="preloader-logo logo-mono">DS</span>
+            <div class="preloader-bar"><div class="preloader-bar-fill"></div></div>
+            <span class="preloader-label">// loading</span>
+        </div>
+        <div class="intro-flash" aria-hidden="true"></div>
+    </div>
+
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress"></div>
+
+    <!-- Ambient particle canvas (2D) -->
+    <canvas id="particles"></canvas>
+
+    <!-- Persistent 3D core — scroll-driven story layer (fixed, behind content) -->
+    <canvas id="hero-canvas" aria-hidden="true"></canvas>
+
+    <!-- Ambient gradient aurora -->
+    <div class="aurora" aria-hidden="true">
+        <span class="aurora-blob blob-a"></span>
+        <span class="aurora-blob blob-b"></span>
+        <span class="aurora-blob blob-c"></span>
+    </div>
+
+    <!-- Cursor glow -->
+    <div id="cursor-glow"></div>
+
+    <!-- Custom precision cursor (dot + trailing ring), desktop-only -->
+    <div id="cursor-dot" aria-hidden="true"></div>
+    <div id="cursor-ring" aria-hidden="true"></div>
+
+    <!-- Chapter rail (scroll storytelling spine) -->
+    <nav class="chapter-rail" aria-label="Page chapters">
+        <a href="#hero" class="rail-dot" data-label="Intro"></a>
+        <a href="#about" class="rail-dot" data-label="The Story"></a>
+        <a href="#leadership" class="rail-dot" data-label="Leadership"></a>
+        <a href="#universities" class="rail-dot" data-label="Universities"></a>
+        <a href="#involvement" class="rail-dot" data-label="Involvement"></a>
+        <a href="#next" class="rail-dot" data-label="What's Next"></a>
+        <a href="#contact" class="rail-dot" data-label="Let's Talk"></a>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="mobile-menu">
+        <a href="#about" class="mobile-nav-link">The Story</a>
+        <a href="#leadership" class="mobile-nav-link">Leadership</a>
+        <a href="#universities" class="mobile-nav-link">Universities</a>
+        <a href="#involvement" class="mobile-nav-link">Involvement</a>
+        <a href="#next" class="mobile-nav-link">What's Next</a>
+        <a href="#contact" class="mobile-nav-link">Contact</a>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <a href="#hero" class="nav-logo"><span class="logo-mono">DS</span></a>
+        <div class="nav-links">
+            <a href="#about" class="nav-link">Story</a>
+            <a href="#leadership" class="nav-link">Leadership</a>
+            <a href="#universities" class="nav-link">Universities</a>
+            <a href="#involvement" class="nav-link">Involvement</a>
+            <a href="#next" class="nav-link">What's Next</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </div>
+        <button id="hamburger" class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <section id="hero">
+        <div class="hero-fallback" aria-hidden="true"></div>
+        <div class="hero-inner">
+            <div class="hero-kicker reveal-up">
+                <span class="kicker-pulse"></span>
+                <span>Incoming Freshman · Yerevan → San Diego</span>
+            </div>
+            <h1 class="hero-name reveal-up">
+                <span class="line">Daron</span>
+                <span class="line accent">Serop</span>
+            </h1>
+            <div class="hero-roles reveal-up">
+                <span class="roles-prefix">I'm a</span>
+                <span class="typing-text" id="typed-text"></span>
+                <span class="cursor-blink">|</span>
+            </div>
+            <p class="hero-tagline reveal-up">
+                I lead, I volunteer, and I learn in three languages at a time — from student
+                government in Armenia and the U.S. to classrooms and community centers across
+                two continents. This fall, I'm taking all of it to
+                <span class="accent">UC San Diego</span>.
+            </p>
+            <div class="hero-cta reveal-up">
+                <a href="#leadership" class="btn btn-primary">
+                    <span>See where I've led</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+                <a href="#contact" class="btn btn-outline"><span>Get in touch</span></a>
+            </div>
+            <div class="hero-stats reveal-up">
+                <div class="stat">
+                    <span class="stat-value"><span class="stat-number" data-count="8">0</span></span>
+                    <span class="stat-label">Universities admitted</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value"><span class="stat-number" data-count="5">0</span></span>
+                    <span class="stat-label">Languages spoken</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value"><span class="stat-number" data-count="3">0</span></span>
+                    <span class="stat-label">Schools attended</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value"><span class="stat-number" data-count="2">0</span></span>
+                    <span class="stat-label">Countries lived in</span>
+                </div>
+            </div>
+        </div>
+        <a href="#about" class="scroll-indicator" aria-label="Scroll to story">
+            <span>Scroll the story</span>
+            <div class="scroll-line"></div>
+        </a>
+    </section>
+
+    <!-- ===== SCROLLING MARQUEE ===== -->
+    <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+            <span>Student Government</span><span class="marquee-dot">/</span>
+            <span>Volunteering</span><span class="marquee-dot">/</span>
+            <span>Public Speaking</span><span class="marquee-dot">/</span>
+            <span>Multilingual</span><span class="marquee-dot">/</span>
+            <span>Community Service</span><span class="marquee-dot">/</span>
+            <span>Teaching Assistant</span><span class="marquee-dot">/</span>
+            <span>Cross-Cultural Leadership</span><span class="marquee-dot">/</span>
+            <span>Beach Cleanups</span><span class="marquee-dot">/</span>
+            <span>Nature Conservation</span><span class="marquee-dot">/</span>
+            <!-- duplicate set for a seamless loop -->
+            <span>Student Government</span><span class="marquee-dot">/</span>
+            <span>Volunteering</span><span class="marquee-dot">/</span>
+            <span>Public Speaking</span><span class="marquee-dot">/</span>
+            <span>Multilingual</span><span class="marquee-dot">/</span>
+            <span>Community Service</span><span class="marquee-dot">/</span>
+            <span>Teaching Assistant</span><span class="marquee-dot">/</span>
+            <span>Cross-Cultural Leadership</span><span class="marquee-dot">/</span>
+            <span>Beach Cleanups</span><span class="marquee-dot">/</span>
+            <span>Nature Conservation</span><span class="marquee-dot">/</span>
+        </div>
+    </div>
+
+    <!-- ===== CHAPTER 01 · THE STORY ===== -->
+    <section id="about" class="section chapter">
+        <div class="container">
+            <div class="chapter-head reveal-up">
+                <span class="chapter-index">01</span>
+                <span class="section-tag">// THE STORY</span>
+            </div>
+            <div class="story-layout">
+                <div class="story-photo reveal-up">
+                    <div class="photo-frame">
+                        <div class="photo-mono" aria-hidden="true">DS</div>
+                        <div class="photo-glow"></div>
+                    </div>
+                    <div class="photo-chip chip-1">Leader</div>
+                    <div class="photo-chip chip-2">Volunteer</div>
+                    <div class="photo-chip chip-3">Multilingual</div>
+                </div>
+                <div class="story-text">
+                    <h2 class="section-title reveal-up">
+                        Three schools, two continents,<br>one <span class="accent">drive to lead.</span>
+                    </h2>
+                    <p class="reveal-up">I'm Daron — a recent high school graduate who's spent the last few years moving between Armenia and the United States, picking up a language and a leadership role everywhere I landed. I started at Quantum College in Yerevan, continued at The MacDuffie School in Massachusetts, and graduated from The Academy at MiraCosta in California.</p>
+                    <p class="reveal-up">At both MacDuffie and MiraCosta I was elected <span class="accent">Student Body President</span>. At MiraCosta I also served as Inter Club Council Representative and as a Teaching Assistant for U.S. History. Outside the classroom, I've volunteered at beach cleanups, homeless shelters and nature reserves in California, and with the Armenian Church of Our Savior, the Arevik Armenia Center for Children with Disabilities, and IWAY back home in Yerevan.</p>
+                    <p class="reveal-up">This fall, I'm taking that mix of leadership, service and languages to <span class="accent">UC San Diego</span> — one of eight universities across four countries that admitted me, and the one that felt like home.</p>
+                    <div class="story-facts reveal-up">
+                        <div class="fact">
+                            <span class="fact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+                            <div><span class="fact-label">Based in</span><span class="fact-value">Yerevan, Armenia</span></div>
+                        </div>
+                        <div class="fact">
+                            <span class="fact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/></svg></span>
+                            <div><span class="fact-label">Next stop</span><span class="fact-value">UC San Diego · Fall '26</span></div>
+                        </div>
+                        <div class="fact">
+                            <span class="fact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+                            <div><span class="fact-label">Speaks</span><span class="fact-value">AM · EN · RU +2</span></div>
+                        </div>
+                        <div class="fact">
+                            <span class="fact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+                            <div><span class="fact-label">Currently</span><span class="fact-value">Incoming Freshman</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CHAPTER 02 · LEADERSHIP & ACTIVITIES ===== -->
+    <section id="leadership" class="section chapter">
+        <div class="container">
+            <div class="chapter-head reveal-up">
+                <span class="chapter-index">02</span>
+                <span class="section-tag">// LEADERSHIP &amp; ACTIVITIES</span>
+            </div>
+            <h2 class="section-title reveal-up">Where I've <span class="accent">stepped up</span></h2>
+            <div class="timeline">
+                <div class="timeline-item reveal-up">
+                    <div class="timeline-marker"><div class="marker-dot"></div><div class="marker-line"></div></div>
+                    <div class="timeline-card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">Student Body President &amp; Teaching Assistant</h3>
+                                <span class="card-company">The Academy at MiraCosta — Oceanside, California, USA</span>
+                            </div>
+                            <span class="card-date">Winter 2025 — Spring 2026</span>
+                        </div>
+                        <ul class="card-list">
+                            <li>Elected Student Body President, representing the student body to school leadership.</li>
+                            <li>Served as Inter Club Council Representative, coordinating across student clubs.</li>
+                            <li>Worked as a Teaching Assistant for U.S. History.</li>
+                            <li>Volunteered at beach cleanups, homeless shelters and nature reserves across California.</li>
+                        </ul>
+                        <div class="card-tags">
+                            <span class="card-tag">Student Government</span><span class="card-tag">Public Speaking</span><span class="card-tag">Teaching</span><span class="card-tag">Volunteering</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal-up">
+                    <div class="timeline-marker"><div class="marker-dot"></div><div class="marker-line"></div></div>
+                    <div class="timeline-card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">Student Body President</h3>
+                                <span class="card-company">The MacDuffie School — Granby, Massachusetts, USA</span>
+                            </div>
+                            <span class="card-date">Fall 2025 — Winter 2026</span>
+                        </div>
+                        <ul class="card-list">
+                            <li>Elected Student Body President.</li>
+                            <li>Volunteered with the Armenian Church of Our Savior in Worcester, Massachusetts.</li>
+                            <li>Volunteered with the Arevik Armenia Center for Children with Disabilities in Yerevan.</li>
+                            <li>Volunteered with IWAY, the International Women's Association of Yerevan.</li>
+                        </ul>
+                        <div class="card-tags">
+                            <span class="card-tag">Student Government</span><span class="card-tag">Community Service</span><span class="card-tag">Cross-Cultural</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CHAPTER 03 · ADMITTED UNIVERSITIES ===== -->
+    <section id="universities" class="section chapter">
+        <div class="container">
+            <div class="chapter-head reveal-up">
+                <span class="chapter-index">03</span>
+                <span class="section-tag">// ADMITTED UNIVERSITIES</span>
+            </div>
+            <h2 class="section-title reveal-up">Where I <span class="accent">could have gone</span></h2>
+            <p class="section-subtitle reveal-up">Eight offers across four countries — here's where I'm headed, and where else I got in.</p>
+            <div class="projects-grid">
+                <article class="project-card project-feature reveal-up">
+                    <div class="project-number">01</div>
+                    <span class="project-flag">Attending · Fall 2026</span>
+                    <div class="project-content">
+                        <h3 class="project-title">University of California, San Diego</h3>
+                        <p class="project-desc">The offer I said yes to — La Jolla, California, starting this September. Class of 2030.</p>
+                        <div class="card-tags">
+                            <span class="card-tag">United States</span><span class="card-tag">California</span><span class="card-tag">Class of 2030</span>
+                        </div>
+                        <a href="https://ucsd.edu" target="_blank" rel="noopener noreferrer" class="project-link">
+                            <span>ucsd.edu</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="project-card reveal-up">
+                    <div class="project-number">02</div>
+                    <div class="project-content">
+                        <h3 class="project-title">University of Washington</h3>
+                        <p class="project-desc">Also admitted — Seattle, Washington, USA.</p>
+                        <div class="card-tags"><span class="card-tag">United States</span></div>
+                        <a href="https://www.washington.edu" target="_blank" rel="noopener noreferrer" class="project-link">
+                            <span>washington.edu</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="project-card reveal-up">
+                    <div class="project-number">03</div>
+                    <div class="project-content">
+                        <h3 class="project-title">University of Toronto — Scarborough</h3>
+                        <p class="project-desc">Also admitted — Toronto, Canada.</p>
+                        <div class="card-tags"><span class="card-tag">Canada</span></div>
+                        <a href="https://www.utoronto.ca" target="_blank" rel="noopener noreferrer" class="project-link">
+                            <span>utoronto.ca</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="project-card reveal-up">
+                    <div class="project-number">04</div>
+                    <div class="project-content">
+                        <h3 class="project-title">University of Toronto — Mississauga</h3>
+                        <p class="project-desc">Also admitted — Toronto, Canada.</p>
+                        <div class="card-tags"><span class="card-tag">Canada</span></div>
+                        <a href="https://www.utoronto.ca" target="_blank" rel="noopener noreferrer" class="project-link">
+                            <span>utoronto.ca</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="project-card reveal-up">
+                    <div class="project-number">05</div>
+                    <div class="project-content">
+                        <h3 class="project-title">University of Toronto — St. George</h3>
+                        <p class="project-desc">Also admitted — Toronto, Canada.</p>
+                        <div class="card-tags"><span class="card-tag">Canada</span></div>
+                        <a href="https://www.utoronto.ca" target="_blank" rel="noopener noreferrer" class="project-link">
+                            <span>utoronto.ca</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="project-card reveal-up">
+                    <div class="project-number">06</div>
+                    <div class="project-content">
+                        <h3 class="project-title">University of Melbourne</h3>
+                        <p class="project-desc">Also admitted — Melbourne, Australia.</p>
+                        <div class="card-tags"><span class="card-tag">Australia</span></div>
+                        <a href="https://www.unimelb.edu.au" target="_blank" rel="noopener noreferrer" class="project-link">
+                            <span>unimelb.edu.au</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="project-card reveal-up">
+                    <div class="project-number">07</div>
+                    <div class="project-content">
+                        <h3 class="project-title">University of Manchester</h3>
+                        <p class="project-desc">Also admitted — Manchester, United Kingdom.</p>
+                        <div class="card-tags"><span class="card-tag">United Kingdom</span></div>
+                        <a href="https://www.manchester.ac.uk" target="_blank" rel="noopener noreferrer" class="project-link">
+                            <span>manchester.ac.uk</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="project-card reveal-up">
+                    <div class="project-number">08</div>
+                    <div class="project-content">
+                        <h3 class="project-title">University of Edinburgh</h3>
+                        <p class="project-desc">Also admitted — Edinburgh, United Kingdom.</p>
+                        <div class="card-tags"><span class="card-tag">United Kingdom</span></div>
+                        <a href="https://www.ed.ac.uk" target="_blank" rel="noopener noreferrer" class="project-link">
+                            <span>ed.ac.uk</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CHAPTER 04 · INVOLVEMENT ===== -->
+    <section id="involvement" class="section chapter">
+        <div class="container">
+            <div class="chapter-head reveal-up">
+                <span class="chapter-index">04</span>
+                <span class="section-tag">// THE BIG PICTURE</span>
+            </div>
+            <h2 class="section-title reveal-up">Everything, <span class="accent">connected</span></h2>
+            <p class="skills-graph-hint reveal-up">Drag a node to move it, drag empty space to pan, Ctrl/Cmd + scroll (or pinch) to zoom.</p>
+            <div id="skills-graph" class="skills-graph reveal-up" aria-hidden="true">
+                <div class="skills-graph-controls">
+                    <button type="button" class="sg-zoom-btn" data-zoom="in" aria-label="Zoom in">+</button>
+                    <button type="button" class="sg-zoom-btn" data-zoom="out" aria-label="Zoom out">&minus;</button>
+                    <button type="button" class="sg-zoom-btn sg-zoom-reset" data-zoom="reset" aria-label="Reset view">&#8634;</button>
+                </div>
+            </div>
+            <div class="skills-grid" id="skills-grid-fallback">
+                <div class="skill-category reveal-up">
+                    <h3 class="skill-cat-title">Leadership</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">Student Body President (MiraCosta)</div>
+                        <div class="skill-item">Student Body President (MacDuffie)</div>
+                        <div class="skill-item">Inter Club Council Representative</div>
+                        <div class="skill-item">Teaching Assistant (US History)</div>
+                    </div>
+                </div>
+                <div class="skill-category reveal-up">
+                    <h3 class="skill-cat-title">Volunteering</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">Beach Cleanups</div><div class="skill-item">Support Shelters</div>
+                        <div class="skill-item">Nature Reserves</div><div class="skill-item">Armenian Church of Our Savior</div>
+                        <div class="skill-item">Arevik Armenia Center</div><div class="skill-item">IWAY</div>
+                    </div>
+                </div>
+                <div class="skill-category reveal-up">
+                    <h3 class="skill-cat-title">Languages</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">Armenian</div><div class="skill-item">English</div>
+                        <div class="skill-item">Russian</div><div class="skill-item">Spanish</div>
+                        <div class="skill-item">Arabic</div>
+                    </div>
+                </div>
+                <div class="skill-category reveal-up">
+                    <h3 class="skill-cat-title">Schools</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">Quantum College</div>
+                        <div class="skill-item">The MacDuffie School</div>
+                        <div class="skill-item">The Academy at MiraCosta</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CHAPTER 05 · WHAT'S NEXT ===== -->
+    <section id="next" class="section chapter">
+        <div class="container">
+            <div class="chapter-head reveal-up">
+                <span class="chapter-index">05</span>
+                <span class="section-tag">// WHAT'S NEXT</span>
+            </div>
+            <div class="next-feature reveal-up">
+                <div class="next-glow"></div>
+                <span class="next-badge">Incoming · Class of 2030</span>
+                <h2 class="next-title">University of California,<br><span class="accent">San Diego</span></h2>
+                <p class="next-desc">Of eight offers across four countries, UC San Diego is where I start this September — the next step after three schools, two continents and a lot of student government meetings. No declared major yet, just momentum.</p>
+                <div class="next-meta">
+                    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Sep 2026</span>
+                    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>San Diego, California, USA</span>
+                    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/></svg>Class of 2030</span>
+                </div>
+            </div>
+
+            <h3 class="next-subhead reveal-up">Schools</h3>
+            <div class="edu-grid">
+                <div class="edu-card reveal-up">
+                    <div class="edu-icon">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/></svg>
+                    </div>
+                    <h4>The Academy at MiraCosta</h4>
+                    <p class="edu-place">Oceanside, California, USA</p>
+                    <p class="edu-date">Winter 2025 — Spring 2026 · Graduated</p>
+                    <p class="edu-detail">High School Diploma</p>
+                </div>
+                <div class="edu-card reveal-up">
+                    <div class="edu-icon">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/></svg>
+                    </div>
+                    <h4>The MacDuffie School</h4>
+                    <p class="edu-place">Granby, Massachusetts, USA</p>
+                    <p class="edu-date">Fall 2024 — Winter 2025</p>
+                    <p class="edu-detail">Coursework toward high school diploma</p>
+                </div>
+                <div class="edu-card reveal-up">
+                    <div class="edu-icon">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/></svg>
+                    </div>
+                    <h4>Quantum College</h4>
+                    <p class="edu-place">Yerevan, Armenia</p>
+                    <p class="edu-date">Grades 5 — 10</p>
+                    <p class="edu-detail">Primary &amp; secondary education</p>
+                </div>
+            </div>
+
+            <h3 class="next-subhead reveal-up">Languages</h3>
+            <div class="languages-grid">
+                <div class="language-card reveal-up">
+                    <div class="language-level-ring" data-level="100">
+                        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" class="ring-bg"/><circle cx="50" cy="50" r="42" class="ring-fill" style="stroke-dasharray:264;stroke-dashoffset:0;"/></svg>
+                        <span class="language-level-text">NAT</span>
+                    </div>
+                    <h4 class="language-name">Armenian</h4>
+                    <span class="language-proficiency">Mother tongue (both dialects)</span>
+                </div>
+                <div class="language-card reveal-up">
+                    <div class="language-level-ring" data-level="95">
+                        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" class="ring-bg"/><circle cx="50" cy="50" r="42" class="ring-fill" style="stroke-dasharray:264;stroke-dashoffset:13;"/></svg>
+                        <span class="language-level-text">NAT</span>
+                    </div>
+                    <h4 class="language-name">English</h4>
+                    <span class="language-proficiency">Native speaker fluency</span>
+                </div>
+                <div class="language-card reveal-up">
+                    <div class="language-level-ring" data-level="75">
+                        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" class="ring-bg"/><circle cx="50" cy="50" r="42" class="ring-fill" style="stroke-dasharray:264;stroke-dashoffset:66;"/></svg>
+                        <span class="language-level-text">FLU</span>
+                    </div>
+                    <h4 class="language-name">Russian</h4>
+                    <span class="language-proficiency">Fluent</span>
+                </div>
+                <div class="language-card reveal-up">
+                    <div class="language-level-ring" data-level="45">
+                        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" class="ring-bg"/><circle cx="50" cy="50" r="42" class="ring-fill" style="stroke-dasharray:264;stroke-dashoffset:145;"/></svg>
+                        <span class="language-level-text">INT</span>
+                    </div>
+                    <h4 class="language-name">Spanish</h4>
+                    <span class="language-proficiency">Intermediate level</span>
+                </div>
+                <div class="language-card reveal-up">
+                    <div class="language-level-ring" data-level="15">
+                        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" class="ring-bg"/><circle cx="50" cy="50" r="42" class="ring-fill" style="stroke-dasharray:264;stroke-dashoffset:224;"/></svg>
+                        <span class="language-level-text">BEG</span>
+                    </div>
+                    <h4 class="language-name">Arabic</h4>
+                    <span class="language-proficiency">Beginner</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== LET'S TALK ===== -->
+    <section id="contact" class="section chapter">
+        <div class="container">
+            <div class="chapter-head reveal-up">
+                <span class="chapter-index">06</span>
+                <span class="section-tag">// LET'S TALK</span>
+            </div>
+            <h2 class="section-title reveal-up">Let's <span class="accent">talk</span></h2>
+            <p class="section-subtitle reveal-up">Questions, opportunities, or just a hello — I read every message.</p>
+
+            <div class="contact-grid">
+                <div class="contact-info reveal-up">
+                    <div class="contact-links">
+                        <a href="mailto:seropdaron@gmail.com" class="contact-link">
+                            <div class="contact-link-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+                            <div><span class="contact-link-label">Email</span><span class="contact-link-value">seropdaron@gmail.com</span></div>
+                        </a>
+                        <a href="tel:+37494521281" class="contact-link">
+                            <div class="contact-link-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+                            <div><span class="contact-link-label">Phone</span><span class="contact-link-value">+374 94 521281</span></div>
+                        </a>
+                    </div>
+                </div>
+                <div class="contact-badge reveal-up">
+                    <div class="linkedin-embed">
+                        <div class="quick-facts-grid">
+                            <div class="stat"><span class="stat-value"><span class="stat-number" data-count="8">0</span></span><span class="stat-label">Universities admitted</span></div>
+                            <div class="stat"><span class="stat-value"><span class="stat-number" data-count="5">0</span></span><span class="stat-label">Languages spoken</span></div>
+                            <div class="stat"><span class="stat-value"><span class="stat-number" data-count="3">0</span></span><span class="stat-label">Schools attended</span></div>
+                            <div class="stat"><span class="stat-value"><span class="stat-number" data-count="2">0</span></span><span class="stat-label">Countries lived in</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer id="footer">
+        <div class="container footer-content">
+            <div class="footer-left">
+                <span class="footer-logo"><span class="logo-mono">DS</span></span>
+                <span class="footer-copy">&copy; 2026 Daron Serop. All rights reserved.</span>
+            </div>
+            <div class="footer-right">
+                <span class="footer-built">Built with passion &amp; code</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 3D hero core — shared engine with the main site -->
+    <script type="module" src="/scene.js"></script>
+    <!-- Interactions (personal bits only — this copy is site-specific) -->
+    <script src="script.js"></script>
+    <!-- GSAP scroll effects (additive parallax layer) — shared engine, vendored locally -->
+    <script defer src="/vendor/gsap.min.js"></script>
+    <script defer src="/vendor/ScrollTrigger.min.js"></script>
+    <script defer src="/gsap-effects.js"></script>
+    <!-- Interactive involvement graph (progressive enhancement over the plain list) -->
+    <script defer src="/vendor/d3.min.js"></script>
+    <script defer src="/skills-graph.js"></script>
+    <!-- Vercel Analytics -->
+    <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
