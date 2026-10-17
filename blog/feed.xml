@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Armen Ghazaryan — Blog</title>
+    <link>https://armenghazaryan.am/blog/</link>
+    <atom:link href="https://armenghazaryan.am/blog/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>Product ownership, CRM &amp; MarTech, and web development in Armenia — by Armen Ghazaryan.</description>
+    <language>en</language>
+    <lastBuildDate>Sat, 17 Oct 2026 06:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Who Is Armen Ghazaryan? Technical Product Owner, Web Developer and AI Student</title>
+      <link>https://armenghazaryan.am/blog/who-is-armen-ghazaryan/</link>
+      <guid isPermaLink="true">https://armenghazaryan.am/blog/who-is-armen-ghazaryan/</guid>
+      <pubDate>Sat, 17 Oct 2026 06:00:00 GMT</pubDate>
+      <category>About</category>
+      <description>Meet Armen Ghazaryan — an Armenian Technical Product Owner for CRM &amp; MarTech at Voveron, a freelance web developer with 50+ clients since 2022, and an AI student at Vrije Universiteit Amsterdam.</description>
+    </item>
+    <item>
+      <title>Website Development in Armenia: What Actually Drives the Cost (2026 Guide)</title>
+      <link>https://armenghazaryan.am/blog/website-development-cost-armenia/</link>
+      <guid isPermaLink="true">https://armenghazaryan.am/blog/website-development-cost-armenia/</guid>
+      <pubDate>Sat, 17 Oct 2026 06:00:00 GMT</pubDate>
+      <category>Web Development</category>
+      <description>A web developer's honest guide to website development costs in Armenia — what changes the price of a landing page, business site, online store or web app, and how to get an accurate quote.</description>
+    </item>
+  </channel>
+</rss>

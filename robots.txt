@@ -1,17 +1,23 @@
+# robots.txt — armenghazaryan.am
+# Everything public is crawlable. A summary for LLMs lives at /llms.txt.
+
 User-agent: *
 Allow: /
 Disallow: /.claude/
 Disallow: /.git/
 Disallow: /node_modules/
 
-# Specific crawl directives
-User-agent: Googlebot
+# AI search & assistant crawlers are explicitly welcome.
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: CCBot
 Allow: /
-Crawl-delay: 1
 
-User-agent: Bingbot
-Allow: /
-Crawl-delay: 1
-
-# Sitemap
 Sitemap: https://armenghazaryan.am/sitemap.xml

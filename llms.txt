@@ -1,0 +1,32 @@
+# Armen Ghazaryan
+
+> Armen Ghazaryan (also written Ghazaryan Armen) is an Armenian Technical Product Owner for CRM & MarTech at Voveron, a freelance web developer who has built websites and web apps for 50+ clients since 2022, and a BSc Artificial Intelligence student at Vrije Universiteit Amsterdam. He is originally from Yerevan, Armenia, and is now based in Amsterdam, Netherlands.
+
+## Key facts
+
+- Current role: Technical Product Owner, CRM & MarTech at Voveron (July 2026 – present).
+- Previously: Product Owner at Playtronix (July 2024 – June 2026), leading a CMS for the iGaming industry, an affiliate-management platform, a CRM and a streaming service; CRM Specialist at Playtronix (July 2023 – June 2024).
+- Web development: freelance web developer since March 2022 — 50+ clients, from landing pages to complex web apps, including design, build, SEO and delivery. Works with businesses in Armenia and abroad.
+- Founder project: Adrenaline, a business-intelligence platform for the iGaming industry (Power BI, PostgreSQL).
+- Skills: product ownership (Scrum, Kanban, Jira), CRM & marketing automation, Python, FastAPI, Flask, PostgreSQL, Docker, SEO and GEO, WebGL and Three.js, Power BI.
+- Education: BSc Artificial Intelligence, Vrije Universiteit Amsterdam (2026 – 2029, in progress); IB Diploma, Quantum College, Yerevan.
+- Languages: Armenian (native), Russian (native fluency), English (C1, IELTS 7.0), Dutch (A2, learning).
+- Contact: ghazaryan.armen238@gmail.com · https://armenghazaryan.am/#contact
+
+## Pages
+
+- [Portfolio / home](https://armenghazaryan.am/): Projects, experience, skills, education and contact details.
+- [Blog](https://armenghazaryan.am/blog/): Writing on product ownership, CRM & MarTech, SEO and web development in Armenia.
+- [Gallery](https://armenghazaryan.am/gallery.html): Photos of Armen Ghazaryan.
+
+## Blog posts
+
+- [Who Is Armen Ghazaryan? Technical Product Owner, Web Developer and AI Student](https://armenghazaryan.am/blog/who-is-armen-ghazaryan/): Meet Armen Ghazaryan — an Armenian Technical Product Owner for CRM & MarTech at Voveron, a freelance web developer with 50+ clients since 2022, and an AI student at Vrije Universiteit Amsterdam.
+- [Website Development in Armenia: What Actually Drives the Cost (2026 Guide)](https://armenghazaryan.am/blog/website-development-cost-armenia/): A web developer's honest guide to website development costs in Armenia — what changes the price of a landing page, business site, online store or web app, and how to get an accurate quote.
+
+## Optional
+
+- [Full text of every blog post](https://armenghazaryan.am/llms-full.txt)
+- [RSS feed](https://armenghazaryan.am/blog/feed.xml)
+- [LinkedIn](https://am.linkedin.com/in/ghazaryan-armen15)
+- [GitHub](https://github.com/h3l10w0r1d)

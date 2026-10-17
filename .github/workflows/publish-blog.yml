@@ -1,0 +1,69 @@
+# Publishes scheduled blog posts. Every day it rebuilds the blog; any post in
+# content/blog/posts whose `date` has arrived goes live (page, banner, sitemap,
+# RSS, llms.txt, homepage block). If nothing changed, nothing is committed.
+# The commit triggers the normal Vercel deploy, then new URLs go to IndexNow.
+name: Publish scheduled blog posts
+
+on:
+  schedule:
+    - cron: '0 6 * * *'   # 06:00 UTC daily
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'content/blog/**'
+      - 'scripts/build-blog.mjs'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-blog
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      INDEXNOW_KEY: 0e814743674b1c829de3331fe8da70aa
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install banner renderer
+        run: npm install --no-save --no-package-lock @resvg/resvg-js@2.6.2
+
+      - name: Build blog
+        env:
+          INDEXNOW_OUT: ${{ runner.temp }}/indexnow-urls.txt
+        run: node scripts/build-blog.mjs
+
+      - name: Commit and push
+        id: commit
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Nothing to publish today."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898299+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Publish scheduled blog posts ($(date -u +%F))"
+          git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Notify IndexNow (Bing, Yandex, Seznam, Naver)
+        if: steps.commit.outputs.changed == 'true'
+        run: |
+          f="$RUNNER_TEMP/indexnow-urls.txt"
+          [ -s "$f" ] || { echo "No new URLs."; exit 0; }
+          sleep 120   # give Vercel time to finish deploying
+          urls=$(jq -R . "$f" | jq -s .)
+          body=$(jq -n --arg key "$INDEXNOW_KEY" --argjson urls "$urls" \
+            '{host:"armenghazaryan.am", key:$key, keyLocation:("https://armenghazaryan.am/" + $key + ".txt"), urlList:$urls}')
+          curl -sS -X POST https://api.indexnow.org/indexnow \
+            -H 'Content-Type: application/json; charset=utf-8' -d "$body" -w '\nHTTP %{http_code}\n' || true
