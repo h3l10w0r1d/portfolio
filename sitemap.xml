@@ -3,14 +3,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://armenghazaryan.am/</loc>
-    <lastmod>2026-10-17</lastmod>
+    <lastmod>2026-10-24</lastmod>
     <priority>1.0</priority>
     <image:image><image:loc>https://armenghazaryan.am/headshot.jpeg</image:loc><image:title>Armen Ghazaryan — Technical Product Owner &amp; Web Developer</image:title></image:image>
   </url>
   <url>
     <loc>https://armenghazaryan.am/blog/</loc>
-    <lastmod>2026-10-17</lastmod>
+    <lastmod>2026-10-24</lastmod>
     <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://armenghazaryan.am/blog/hire-web-developer-armenia/</loc>
+    <lastmod>2026-10-24</lastmod>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://armenghazaryan.am/blog/banners/hire-web-developer-armenia.png</image:loc><image:title>Hiring a Web Developer in Armenia: 10 Questions to Ask Before You Sign</image:title></image:image>
   </url>
   <url>
     <loc>https://armenghazaryan.am/blog/who-is-armen-ghazaryan/</loc>

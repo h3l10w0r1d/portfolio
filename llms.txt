@@ -21,6 +21,7 @@
 
 ## Blog posts
 
+- [Hiring a Web Developer in Armenia: 10 Questions to Ask Before You Sign](https://armenghazaryan.am/blog/hire-web-developer-armenia/): Hiring a web developer in Armenia? Ten questions — about ownership, tech stack, SEO, languages, payments and support — that separate a reliable developer from an expensive lesson.
 - [Who Is Armen Ghazaryan? Technical Product Owner, Web Developer and AI Student](https://armenghazaryan.am/blog/who-is-armen-ghazaryan/): Meet Armen Ghazaryan — an Armenian Technical Product Owner for CRM & MarTech at Voveron, a freelance web developer with 50+ clients since 2022, and an AI student at Vrije Universiteit Amsterdam.
 - [Website Development in Armenia: What Actually Drives the Cost (2026 Guide)](https://armenghazaryan.am/blog/website-development-cost-armenia/): A web developer's honest guide to website development costs in Armenia — what changes the price of a landing page, business site, online store or web app, and how to get an accurate quote.
 
